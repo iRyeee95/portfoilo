@@ -139,195 +139,205 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     return saved;
   });
 
-  // --- Dynamic Layout Customizations (The Working Deck Parameters) ---
-  const [photoWidthRatio, setPhotoWidthRatio] = useState(() => Number(localStorage.getItem('badge_photo_width_ratio') || '3')); // col-span out of 5 (1 to 4)
-  const [photoRadius, setPhotoRadius] = useState(() => Number(localStorage.getItem('badge_photo_radius') || '12')); // border-radius in px
-  const [photoScale, setPhotoScale] = useState(() => Number(localStorage.getItem('badge_photo_scale') || '100')); // image width/height scale %
-  const [photoXOffset, setPhotoXOffset] = useState(() => Number(localStorage.getItem('badge_photo_x_offset') || '0')); // shift x in px
-  const [photoYOffset, setPhotoYOffset] = useState(() => Number(localStorage.getItem('badge_photo_y_offset') || '0')); // shift y in px
+  // --- Dynamic Layout Customizations (Reactive Design Specs) ---
+  const [photoWidthRatio, setPhotoWidthRatio] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_photo_width_ratio') || '2.6');
+  });
+  const [photoRadius, setPhotoRadius] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_photo_radius') || '12');
+  });
+  const [photoScale, setPhotoScale] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_photo_scale') || '105');
+  });
+  const [photoXOffset, setPhotoXOffset] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_photo_x_offset') || '0');
+  });
+  const [photoYOffset, setPhotoYOffset] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_photo_y_offset') || '-8');
+  });
 
-  const [nameSize, setNameSize] = useState(() => Number(localStorage.getItem('badge_name_size') || '38')); // px
-  const [nameLineHeight, setNameLineHeight] = useState(() => Number(localStorage.getItem('badge_name_lh') || '42')); // px
-  const [engNameSize, setEngNameSize] = useState(() => Number(localStorage.getItem('badge_eng_size') || '19')); // px
-  const [labelSize, setLabelSize] = useState(() => Number(localStorage.getItem('badge_label_size') || '10')); // px
-  const [valueSize, setValueSize] = useState(() => Number(localStorage.getItem('badge_value_size') || '15')); // px
-  const [telEmailSize, setTelEmailSize] = useState(() => Number(localStorage.getItem('badge_telemail_size') || '14')); // px
+  const [nameSize, setNameSize] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_name_size') || '38');
+  });
+  const [nameLineHeight, setNameLineHeight] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_name_lh') || '42');
+  });
+  const [engNameSize, setEngNameSize] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_eng_size') || '19');
+  });
+  const [labelSize, setLabelSize] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_label_size') || '10');
+  });
+  const [valueSize, setValueSize] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_value_size') || '15');
+  });
+  const [telEmailSize, setTelEmailSize] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_telemail_size') || '14');
+  });
 
-  const [cardMinHeight, setCardMinHeight] = useState(() => Number(localStorage.getItem('badge_card_height') || '730')); // px card height
-  const [cardWidth, setCardWidth] = useState(() => Number(localStorage.getItem('badge_card_width') || '395')); // px card width
-  const [cardPadding, setCardPadding] = useState(() => Number(localStorage.getItem('badge_card_padding') || '28')); // px inner padding
-  const [badgeBg, setBadgeBg] = useState(() => localStorage.getItem('badge_card_bg') || '#121214'); // Hex matte bg
-  const [backBadgeBg, setBackBadgeBg] = useState(() => localStorage.getItem('badge_card_back_bg') || '#E1FF39'); // Hex neon back plate bg
-  
-  const [cardRotateOffset, setCardRotateOffset] = useState(() => Number(localStorage.getItem('badge_card_rotate') || '-16')); // degrees rotation
-  const [cardTranslateX, setCardTranslateX] = useState(() => Number(localStorage.getItem('badge_card_tx') || '-55')); // px
-  const [cardTranslateY, setCardTranslateY] = useState(() => Number(localStorage.getItem('badge_card_ty') || '16')); // px
-  const [tiltSensitivity, setTiltSensitivity] = useState(() => Number(localStorage.getItem('badge_tilt_sens') || '15')); // slider sensitivity
-  
-  const [showFloatingIcons, setShowFloatingIcons] = useState(() => localStorage.getItem('badge_show_float') !== 'false');
-  const [floatScale, setFloatScale] = useState(() => Number(localStorage.getItem('badge_float_scale') || '125')); // hover scale ratio
+  const [cardMinHeight, setCardMinHeight] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_card_height') || '730');
+  });
+  const [cardWidth, setCardWidth] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_card_width') || '395');
+  });
+  const [cardPadding, setCardPadding] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_card_padding') || '28');
+  });
+  const [badgeBg, setBadgeBg] = useState<string>(() => {
+    return localStorage.getItem('badge_card_bg') || '#121214';
+  });
+  const [backBadgeBg, setBackBadgeBg] = useState<string>(() => {
+    return localStorage.getItem('badge_card_back_bg') || '#E1FF39';
+  });
 
-  // Menu Active Category under parameters sliding panel
-  const [tunerTab, setTunerTab] = useState<'photo' | 'type' | 'card' | 'code'>('photo');
-  const [copiedCodeConfig, setCopiedCodeConfig] = useState(false);
+  const [cardRotateOffset, setCardRotateOffset] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_card_rotate') || '-16');
+  });
+  const [cardTranslateX, setCardTranslateX] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_card_tx') || '-55');
+  });
+  const [cardTranslateY, setCardTranslateY] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_card_ty') || '16');
+  });
+  const [tiltSensitivity, setTiltSensitivity] = useState<number>(() => {
+    return Number(localStorage.getItem('badge_tilt_sens') || '15');
+  });
 
-  // Collapsing the working badge tuner
-  const [showBadgeTuner, setShowBadgeTuner] = useState(false);
-
-  // Controls visibility of both workspace/tuner panel containers, closed by default as user requested
-  const [showTunerPanels, setShowTunerPanels] = useState(false);
+  const [showFloatingIcons, setShowFloatingIcons] = useState<boolean>(() => {
+    const saved = localStorage.getItem('badge_show_float');
+    return saved === null ? true : saved === 'true';
+  });
+  const [floatScale] = useState(125);
 
   // States for Resume Content/Typography Customization on the right
-  const [timelineColor, setTimelineColor] = useState(() => localStorage.getItem('resume_timeline_color') || '#E1FF39');
-  const [roleFontSize, setRoleFontSize] = useState(() => Number(localStorage.getItem('resume_role_fs') || '22')); // px
-  const [descFontSize, setDescFontSize] = useState(() => Number(localStorage.getItem('resume_desc_fs') || '16')); // px
-  const [periodFontSize, setPeriodFontSize] = useState(() => Number(localStorage.getItem('resume_period_fs') || '16')); // px
-  const [timelineSpacing, setTimelineSpacing] = useState(() => Number(localStorage.getItem('resume_timeline_spacing') || '32')); // px margin-bottom
-  
-  // Tab for Right Side Word Tuner (edit list vs adjust layout)
+  const [timelineColor, setTimelineColor] = useState<string>(() => {
+    return localStorage.getItem('resume_timeline_color') || '#E1FF39';
+  });
+  const [roleFontSize, setRoleFontSize] = useState<number>(() => {
+    return Number(localStorage.getItem('resume_role_fs') || '22');
+  });
+  const [descFontSize, setDescFontSize] = useState<number>(() => {
+    return Number(localStorage.getItem('resume_desc_fs') || '16');
+  });
+  const [periodFontSize, setPeriodFontSize] = useState<number>(() => {
+    return Number(localStorage.getItem('resume_period_fs') || '16');
+  });
+  const [timelineSpacing, setTimelineSpacing] = useState<number>(() => {
+    return Number(localStorage.getItem('resume_timeline_spacing') || '32');
+  });
+
+  // Tuner Controls
+  const [showTunerPanels, setShowTunerPanels] = useState(false);
+  const [showBadgeTuner, setShowBadgeTuner] = useState(false);
+  const [tunerTab, setTunerTab] = useState<'photo' | 'type' | 'card' | 'code'>('photo');
   const [resumeTunerTab, setResumeTunerTab] = useState<'content' | 'education' | 'type'>('content');
-  const [editingIndex, setEditingIndex] = useState<number>(0);
+  const [editingIndex, setEditingIndex] = useState(0);
+  const [copiedCodeConfig, setCopiedCodeConfig] = useState(false);
 
-  // Quick State Setters with localStorage syncing matching the requirements
-  const setAndSave = (key: string, value: any, setter: (val: any) => void) => {
-    setter(value);
-    localStorage.setItem(key, String(value));
+  // Helper Setters
+  const setAndSave = <T extends string | number | boolean>(
+    key: string,
+    val: T,
+    setter: React.Dispatch<React.SetStateAction<any>>
+  ) => {
+    localStorage.setItem(key, String(val));
+    setter(val);
   };
 
-  const setAndSaveList = (key: string, value: any[], setter: (val: any[]) => void) => {
-    setter(value);
-    localStorage.setItem(key, JSON.stringify(value));
+  const setAndSaveList = <T,>(
+    key: string,
+    val: T[],
+    setter: React.Dispatch<React.SetStateAction<T[]>>
+  ) => {
+    localStorage.setItem(key, JSON.stringify(val));
+    setter(val);
   };
 
-  const applyPreset = (presetName: 'default' | 'cinematic' | 'minimal' | 'bigPhoto') => {
-    const presets = {
-      default: {
-        photoWidthRatio: 3,
-        photoRadius: 12,
-        photoScale: 100,
-        photoXOffset: 0,
-        photoYOffset: 0,
-        nameSize: 38,
-        nameLineHeight: 42,
-        engNameSize: 19,
-        labelSize: 10,
-        valueSize: 15,
-        telEmailSize: 14,
-        cardMinHeight: 730,
-        cardWidth: 395,
-        cardPadding: 28,
-        badgeBg: '#121214',
-        backBadgeBg: '#E1FF39',
-        cardRotateOffset: -16,
-        cardTranslateX: -55,
-        cardTranslateY: 16,
-        tiltSensitivity: 15,
-        showFloatingIcons: true,
-        floatScale: 125,
-      },
-      cinematic: {
-        photoWidthRatio: 2,
-        photoRadius: 8,
-        photoScale: 110,
-        photoXOffset: 0,
-        photoYOffset: -10,
-        nameSize: 42,
-        nameLineHeight: 46,
-        engNameSize: 22,
-        labelSize: 9,
-        valueSize: 14,
-        telEmailSize: 13,
-        cardMinHeight: 680,
-        cardWidth: 420,
-        cardPadding: 24,
-        badgeBg: '#09090b',
-        backBadgeBg: '#00FFE0',
-        cardRotateOffset: -10,
-        cardTranslateX: -40,
-        cardTranslateY: 10,
-        tiltSensitivity: 12,
-        showFloatingIcons: true,
-        floatScale: 115,
-      },
-      minimal: {
-        photoWidthRatio: 1,
-        photoRadius: 16,
-        photoScale: 90,
-        photoXOffset: 0,
-        photoYOffset: 0,
-        nameSize: 46,
-        nameLineHeight: 50,
-        engNameSize: 20,
-        labelSize: 8,
-        valueSize: 13,
-        telEmailSize: 12,
-        cardMinHeight: 640,
-        cardWidth: 350,
-        cardPadding: 20,
-        badgeBg: '#151515',
-        backBadgeBg: '#FF1493',
-        cardRotateOffset: -5,
-        cardTranslateX: -25,
-        cardTranslateY: 5,
-        tiltSensitivity: 8,
-        showFloatingIcons: false,
-        floatScale: 100,
-      },
-      bigPhoto: {
-        photoWidthRatio: 4,
-        photoRadius: 20,
-        photoScale: 130,
-        photoXOffset: -10,
-        photoYOffset: -20,
-        nameSize: 32,
-        nameLineHeight: 36,
-        engNameSize: 16,
-        labelSize: 11,
-        valueSize: 16,
-        telEmailSize: 15,
-        cardMinHeight: 760,
-        cardWidth: 400,
-        cardPadding: 32,
-        badgeBg: '#1c1917',
-        backBadgeBg: '#FFAA00',
-        cardRotateOffset: -20,
-        cardTranslateX: -65,
-        cardTranslateY: 20,
-        tiltSensitivity: 20,
-        showFloatingIcons: true,
-        floatScale: 135,
-      }
-    };
-
-    const selected = presets[presetName];
-    // Sync to state & localStorage
-    Object.entries(selected).forEach(([key, val]) => {
-      localStorage.setItem(`badge_${key}`, String(val));
-    });
-
-    setPhotoWidthRatio(selected.photoWidthRatio);
-    setPhotoRadius(selected.photoRadius);
-    setPhotoScale(selected.photoScale);
-    setPhotoXOffset(selected.photoXOffset);
-    setPhotoYOffset(selected.photoYOffset);
-    setNameSize(selected.nameSize);
-    setNameLineHeight(selected.nameLineHeight);
-    setEngNameSize(selected.engNameSize);
-    setLabelSize(selected.labelSize);
-    setValueSize(selected.valueSize);
-    setTelEmailSize(selected.telEmailSize);
-    setCardMinHeight(selected.cardMinHeight);
-    setCardWidth(selected.cardWidth || 395);
-    setCardPadding(selected.cardPadding);
-    setBadgeBg(selected.badgeBg);
-    setBackBadgeBg(selected.backBadgeBg);
-    setCardRotateOffset(selected.cardRotateOffset);
-    setCardTranslateX(selected.cardTranslateX);
-    setCardTranslateY(selected.cardTranslateY);
-    setTiltSensitivity(selected.tiltSensitivity);
-    setShowFloatingIcons(selected.showFloatingIcons);
-    setFloatScale(selected.floatScale);
+  const applyPreset = (preset: 'default' | 'cinematic' | 'minimal' | 'bigPhoto') => {
+    if (preset === 'default') {
+      setAndSave('badge_photo_width_ratio', 2.6, setPhotoWidthRatio);
+      setAndSave('badge_photo_radius', 12, setPhotoRadius);
+      setAndSave('badge_photo_scale', 105, setPhotoScale);
+      setAndSave('badge_photo_x_offset', 0, setPhotoXOffset);
+      setAndSave('badge_photo_y_offset', -8, setPhotoYOffset);
+      setAndSave('badge_name_size', 38, setNameSize);
+      setAndSave('badge_name_lh', 42, setNameLineHeight);
+      setAndSave('badge_eng_size', 19, setEngNameSize);
+      setAndSave('badge_label_size', 10, setLabelSize);
+      setAndSave('badge_value_size', 15, setValueSize);
+      setAndSave('badge_telemail_size', 14, setTelEmailSize);
+      setAndSave('badge_card_height', 730, setCardMinHeight);
+      setAndSave('badge_card_width', 395, setCardWidth);
+      setAndSave('badge_card_padding', 28, setCardPadding);
+      setAndSave('badge_card_bg', '#121214', setBadgeBg);
+      setAndSave('badge_card_back_bg', '#E1FF39', setBackBadgeBg);
+      setAndSave('badge_card_rotate', -16, setCardRotateOffset);
+      setAndSave('badge_card_tx', -55, setCardTranslateX);
+      setAndSave('badge_card_ty', 16, setCardTranslateY);
+    } else if (preset === 'cinematic') {
+      setAndSave('badge_photo_width_ratio', 2.2, setPhotoWidthRatio);
+      setAndSave('badge_photo_radius', 20, setPhotoRadius);
+      setAndSave('badge_photo_scale', 115, setPhotoScale);
+      setAndSave('badge_photo_x_offset', 5, setPhotoXOffset);
+      setAndSave('badge_photo_y_offset', -10, setPhotoYOffset);
+      setAndSave('badge_name_size', 42, setNameSize);
+      setAndSave('badge_name_lh', 46, setNameLineHeight);
+      setAndSave('badge_eng_size', 20, setEngNameSize);
+      setAndSave('badge_label_size', 9, setLabelSize);
+      setAndSave('badge_value_size', 16, setValueSize);
+      setAndSave('badge_telemail_size', 15, setTelEmailSize);
+      setAndSave('badge_card_height', 750, setCardMinHeight);
+      setAndSave('badge_card_width', 410, setCardWidth);
+      setAndSave('badge_card_padding', 24, setCardPadding);
+      setAndSave('badge_card_bg', '#09090b', setBadgeBg);
+      setAndSave('badge_card_back_bg', '#FF1493', setBackBadgeBg);
+      setAndSave('badge_card_rotate', -10, setCardRotateOffset);
+      setAndSave('badge_card_tx', -30, setCardTranslateX);
+      setAndSave('badge_card_ty', 30, setCardTranslateY);
+    } else if (preset === 'minimal') {
+      setAndSave('badge_photo_width_ratio', 2.8, setPhotoWidthRatio);
+      setAndSave('badge_photo_radius', 0, setPhotoRadius);
+      setAndSave('badge_photo_scale', 95, setPhotoScale);
+      setAndSave('badge_photo_x_offset', -10, setPhotoXOffset);
+      setAndSave('badge_photo_y_offset', 0, setPhotoYOffset);
+      setAndSave('badge_name_size', 34, setNameSize);
+      setAndSave('badge_name_lh', 38, setNameLineHeight);
+      setAndSave('badge_eng_size', 16, setEngNameSize);
+      setAndSave('badge_label_size', 11, setLabelSize);
+      setAndSave('badge_value_size', 14, setValueSize);
+      setAndSave('badge_telemail_size', 13, setTelEmailSize);
+      setAndSave('badge_card_height', 710, setCardMinHeight);
+      setAndSave('badge_card_width', 380, setCardWidth);
+      setAndSave('badge_card_padding', 32, setCardPadding);
+      setAndSave('badge_card_bg', '#1c1917', setBadgeBg);
+      setAndSave('badge_card_back_bg', '#fafaf9', setBackBadgeBg);
+      setAndSave('badge_card_rotate', 0, setCardRotateOffset);
+      setAndSave('badge_card_tx', 0, setCardTranslateX);
+      setAndSave('badge_card_ty', 0, setCardTranslateY);
+    } else if (preset === 'bigPhoto') {
+      setAndSave('badge_photo_width_ratio', 1.8, setPhotoWidthRatio);
+      setAndSave('badge_photo_radius', 8, setPhotoRadius);
+      setAndSave('badge_photo_scale', 135, setPhotoScale);
+      setAndSave('badge_photo_x_offset', 0, setPhotoXOffset);
+      setAndSave('badge_photo_y_offset', -15, setPhotoYOffset);
+      setAndSave('badge_name_size', 32, setNameSize);
+      setAndSave('badge_name_lh', 36, setNameLineHeight);
+      setAndSave('badge_eng_size', 15, setEngNameSize);
+      setAndSave('badge_label_size', 9, setLabelSize);
+      setAndSave('badge_value_size', 13, setValueSize);
+      setAndSave('badge_telemail_size', 12, setTelEmailSize);
+      setAndSave('badge_card_height', 780, setCardMinHeight);
+      setAndSave('badge_card_width', 400, setCardWidth);
+      setAndSave('badge_card_padding', 20, setCardPadding);
+      setAndSave('badge_card_bg', '#111827', setBadgeBg);
+      setAndSave('badge_card_back_bg', '#3B82F6', setBackBadgeBg);
+      setAndSave('badge_card_rotate', -5, setCardRotateOffset);
+      setAndSave('badge_card_tx', -15, setCardTranslateX);
+      setAndSave('badge_card_ty', -15, setCardTranslateY);
+    }
   };
+
 
   const [educationList, setEducationList] = useState<string[]>(() => {
     try {
@@ -353,13 +363,13 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
         period: '2020.9 - 2025.6',
         role: '资深视觉设计师',
         company: '猎豹移动-豹趣科技',
-        description: '千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
+        description: '1. 千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
       },
       {
         period: '2019 - 2020',
         role: '视觉设计师',
         company: '广州卓丰科技',
-        description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣传和迭代。'
+        description: '负责相机、清理等手机软件的视觉内容设计 and 运营活动宣传和迭代。'
       },
       {
         period: '2018 - 2019',
@@ -423,13 +433,13 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
           period: '2020.9 - 2025.6',
           role: '资深视觉设计师',
           company: '猎豹移动-豹趣科技',
-          description: '千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
+          description: '1. 千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
         },
         {
           period: '2019 - 2020',
           role: '视觉设计师',
           company: '广州卓丰科技',
-          description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣传和迭代。'
+          description: '负责相机、清理等手机软件的视觉内容设计 and 运营活动宣传和迭代。'
         },
         {
           period: '2018 - 2019',
@@ -441,50 +451,9 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
       localStorage.setItem('resume_experience_list', JSON.stringify(targetExp));
       setExperienceList(targetExp);
 
-      const targetPhoto = '/pic.jpg';
-      localStorage.setItem('badge_photo', targetPhoto);
-      setBadgePhoto(targetPhoto);
-
-      // Force apply standard defaults for sizes to look pristine out-of-the-box
-      localStorage.setItem('badge_photo_width_ratio', '3');
-      localStorage.setItem('badge_photo_radius', '12');
-      localStorage.setItem('badge_photo_scale', '100');
-      localStorage.setItem('badge_photo_x_offset', '0');
-      localStorage.setItem('badge_photo_y_offset', '0');
-      localStorage.setItem('badge_name_size', '38');
-      localStorage.setItem('badge_name_lh', '42');
-      localStorage.setItem('badge_eng_size', '19');
-      localStorage.setItem('badge_label_size', '10');
-      localStorage.setItem('badge_value_size', '15');
-      localStorage.setItem('badge_telemail_size', '14');
-      localStorage.setItem('badge_card_height', '730');
-      localStorage.setItem('badge_card_width', '395');
-      localStorage.setItem('badge_card_padding', '28');
-      localStorage.setItem('badge_card_bg', '#121214');
-      localStorage.setItem('badge_card_back_bg', '#E1FF39');
-      localStorage.setItem('badge_card_rotate', '-16');
-      localStorage.setItem('badge_card_tx', '-55');
-      localStorage.setItem('badge_card_ty', '16');
-
-      setPhotoWidthRatio(3);
-      setPhotoRadius(12);
-      setPhotoScale(100);
-      setPhotoXOffset(0);
-      setPhotoYOffset(0);
-      setNameSize(38);
-      setNameLineHeight(42);
-      setEngNameSize(19);
-      setLabelSize(10);
-      setValueSize(15);
-      setTelEmailSize(14);
-      setCardMinHeight(730);
-      setCardWidth(395);
-      setCardPadding(28);
-      setBadgeBg('#121214');
-      setBackBadgeBg('#E1FF39');
-      setCardRotateOffset(-16);
-      setCardTranslateX(-55);
-      setCardTranslateY(16);
+      const defaultPhoto = '/pic.jpg';
+      localStorage.setItem('badge_photo', defaultPhoto);
+      setBadgePhoto(defaultPhoto);
     }
   }, []);
 
@@ -1091,6 +1060,31 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                 />
               </div>
             </motion.div>
+
+            {/* Quick Interactive Tuner Trigger Button */}
+            <div className="mt-7 flex flex-col items-center gap-2 relative z-50">
+              <button
+                type="button"
+                onClick={() => {
+                  setShowTunerPanels(!showTunerPanels);
+                  if (!showBadgeTuner) {
+                    setShowBadgeTuner(true);
+                  }
+                }}
+                className={`px-5 py-3 rounded-xl font-mono text-[10.5px] font-black tracking-wider uppercase transition-all duration-300 flex items-center gap-2.5 shadow-xl border cursor-pointer hover:scale-[1.025] active:scale-95 ${
+                  showTunerPanels
+                    ? 'bg-neutral-900 text-white border-neutral-700 hover:bg-neutral-800'
+                    : 'bg-[#E1FF39] text-neutral-950 border-transparent hover:bg-opacity-95 hover:shadow-[#E1FF39]/20'
+                }`}
+                style={showTunerPanels ? {} : { backgroundColor: backBadgeBg }}
+              >
+                <Sliders className="w-4 h-4" />
+                {showTunerPanels ? '🔒 CLOSE DESIGN STUDIO TUNER / 关闭微调台' : '🔧 OPEN DESIGN STUDIO TUNER / 展开设计微调台'}
+              </button>
+              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest leading-none select-none">
+                Adjust portrait, offsets, typography & spacing in real-time
+              </span>
+            </div>
 
             {/* --- COLLAPSIBLE ID BADGE DECK TUNER --- */}
             {showTunerPanels && (

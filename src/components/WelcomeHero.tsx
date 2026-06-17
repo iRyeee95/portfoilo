@@ -16,19 +16,19 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
   // Interactive styling state for the user uploaded custom PNG
   const [imgWidth, setImgWidth] = useState<number>(() => {
     const saved = localStorage.getItem('welcome_img_width');
-    return saved ? parseInt(saved, 10) : 850;
+    return saved ? parseInt(saved, 10) : 950;
   });
   const [leftMargin, setLeftMargin] = useState<number>(() => {
     const saved = localStorage.getItem('welcome_img_left_margin');
-    return saved ? parseInt(saved, 10) : 80;
+    return saved ? parseInt(saved, 10) : 48;
   });
   const [topOffset, setTopOffset] = useState<number>(() => {
     const saved = localStorage.getItem('welcome_img_top_offset');
-    return saved ? parseInt(saved, 10) : 0;
+    return saved ? parseInt(saved, 10) : -20;
   });
   const [maxHeight, setMaxHeight] = useState<number>(() => {
     const saved = localStorage.getItem('welcome_img_max_height');
-    return saved ? parseInt(saved, 10) : 500;
+    return saved ? parseInt(saved, 10) : 650;
   });
   // Custom video background mask opacity (0 to 100)
   const [maskOpacity, setMaskOpacity] = useState<number>(() => {
@@ -191,7 +191,7 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
             className="group px-6 py-3.5 rounded-lg font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-xl flex items-center gap-2 cursor-pointer hover:opacity-90"
             id="enter-studio-btn"
             style={{ 
-              marginLeft: '120px', 
+              marginLeft: '0px', 
               backgroundColor: '#E1FF39' 
             }}
           >
