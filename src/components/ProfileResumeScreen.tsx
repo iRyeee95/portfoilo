@@ -17,6 +17,8 @@ import {
   Info
 } from 'lucide-react';
 import InteractiveDotGrid from './InteractiveDotGrid';
+import savedConfigData from '../data/config.json';
+const savedConfig = savedConfigData as any;
 
 interface ProfileResumeScreenProps {
   onScrollToWorks: () => void;
@@ -47,10 +49,9 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
   // Badge Photo url/base64 state
   const [badgePhoto, setBadgePhoto] = useState(() => {
-    const saved = localStorage.getItem('badge_photo');
+    const saved = savedConfig.badge_photo || localStorage.getItem('badge_photo');
     if (!saved || saved.includes('unsplash.com') || saved.startsWith('http://') || saved.startsWith('https://')) {
       const defaultPhoto = '/pic.jpg';
-      localStorage.setItem('badge_photo', defaultPhoto);
       return defaultPhoto;
     }
     return saved;
@@ -81,379 +82,330 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
   // Client-side text customisations (linked to contentEditable)
   const [name, setName] = useState(() => {
-    const saved = localStorage.getItem('badge_name');
-    if (!saved || saved === '李瀚' || saved === '韩李' || saved.includes('许萍子')) {
-      localStorage.setItem('badge_name', '许\n子熠');
-      return '许\n子熠';
-    }
-    return saved;
+    return savedConfig.badge_name || localStorage.getItem('badge_name') || '许\n子熠';
   });
   const [englishName, setEnglishName] = useState(() => {
-    const saved = localStorage.getItem('badge_eng_name');
-    if (!saved || saved === 'HAN LI' || saved === 'ZIYI XU') {
-      localStorage.setItem('badge_eng_name', 'RYE XU');
-      return 'RYE XU';
-    }
-    return saved;
+    return savedConfig.badge_eng_name || localStorage.getItem('badge_english_name') || 'RYE XU';
   });
   const [yearsExp, setYearsExp] = useState(() => {
-    const saved = localStorage.getItem('badge_years_exp');
-    if (!saved || saved === '7年以上经验' || saved === '7 YEARS EXP') {
-      localStorage.setItem('badge_years_exp', '7+ YEARS EXP');
-      return '7+ YEARS EXP';
-    }
-    return saved;
+    return savedConfig.badge_years_exp || localStorage.getItem('badge_years_exp') || '7+ YEARS EXP';
   });
   const [birthday, setBirthday] = useState(() => {
-    const saved = localStorage.getItem('badge_birthday');
-    if (!saved || saved === '1995.10.16' || saved.includes('1995年')) {
-      localStorage.setItem('badge_birthday', '1996.09.05');
-      return '1996.09.05';
-    }
-    return saved;
+    return savedConfig.badge_birthday || localStorage.getItem('badge_birthday') || '1996.09.05';
   });
   const [tel, setTel] = useState(() => {
-    const saved = localStorage.getItem('badge_tel');
-    if (!saved || saved === '+46 (8) 545-09-500') {
-      localStorage.setItem('badge_tel', '153-7735-6930');
-      return '153-7735-6930';
-    }
-    return saved;
+    return savedConfig.badge_tel || localStorage.getItem('badge_tel') || '153-7735-6930';
   });
   const [email, setEmail] = useState(() => {
-    const saved = localStorage.getItem('badge_email');
-    if (!saved || saved === 'collaborate@han-li.design') {
-      localStorage.setItem('badge_email', 'xuziyi905@outlook.com');
-      return 'xuziyi905@outlook.com';
-    }
-    return saved;
+    return savedConfig.badge_email || localStorage.getItem('badge_email') || 'xuziyi905@outlook.com';
   });
-
   const [introText, setIntroText] = useState(() => {
-    const saved = localStorage.getItem('resume_intro_text');
-    if (!saved || saved.includes('Stockholm') || saved.includes('Zürich') || saved.includes('Paris')) {
-      const defaultIntro = 'Archived timeline of professional visual strategy, creative operations, and platform content ecosystems across Yuanqi Desktop and commercial illustrations.';
-      localStorage.setItem('resume_intro_text', defaultIntro);
-      return defaultIntro;
-    }
-    return saved;
+    return savedConfig.resume_intro_text || localStorage.getItem('badge_intro_text') || 'Archived timeline of professional visual strategy, creative operations, and platform content ecosystems across Yuanqi Desktop and commercial illustrations.';
   });
 
-  // --- Dynamic Layout Customizations (Reactive Design Specs) ---
+  // --- Dynamic Layout Customizations (Pristine Constant Design Specs) ---
   const [photoWidthRatio, setPhotoWidthRatio] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_photo_width_ratio') || '2.6');
+    return Number(savedConfig.badge_photo_width_ratio || savedConfig.badge_photoWidthRatio || localStorage.getItem('badge_photo_width_ratio') || '3.05');
   });
   const [photoRadius, setPhotoRadius] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_photo_radius') || '12');
+    return Number(savedConfig.badge_photo_radius || savedConfig.badge_photoRadius || localStorage.getItem('badge_photo_radius') || '9');
   });
   const [photoScale, setPhotoScale] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_photo_scale') || '105');
+    return Number(savedConfig.badge_photo_scale || savedConfig.badge_photoScale || localStorage.getItem('badge_photo_scale') || '128');
   });
   const [photoXOffset, setPhotoXOffset] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_photo_x_offset') || '0');
+    return Number(savedConfig.badge_photo_x_offset || savedConfig.badge_photoXOffset || localStorage.getItem('badge_photo_x_offset') || '0');
   });
   const [photoYOffset, setPhotoYOffset] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_photo_y_offset') || '-8');
+    return Number(savedConfig.badge_photo_y_offset || savedConfig.badge_photoYOffset || localStorage.getItem('badge_photo_y_offset') || '0');
   });
 
   const [nameSize, setNameSize] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_name_size') || '38');
+    return Number(savedConfig.badge_name_size || savedConfig.badge_nameSize || localStorage.getItem('badge_name_size') || '43.6');
   });
   const [nameLineHeight, setNameLineHeight] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_name_lh') || '42');
+    return Number(savedConfig.badge_name_lh || savedConfig.badge_nameLineHeight || localStorage.getItem('badge_name_lh') || '47.6');
   });
   const [engNameSize, setEngNameSize] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_eng_size') || '19');
+    return Number(savedConfig.badge_eng_size || savedConfig.badge_engNameSize || localStorage.getItem('badge_eng_size') || '23.7');
   });
   const [labelSize, setLabelSize] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_label_size') || '10');
+    return Number(savedConfig.badge_label_size || savedConfig.badge_labelSize || localStorage.getItem('badge_label_size') || '12.4');
   });
   const [valueSize, setValueSize] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_value_size') || '15');
+    return Number(savedConfig.badge_value_size || savedConfig.badge_valueSize || localStorage.getItem('badge_value_size') || '19.6');
   });
   const [telEmailSize, setTelEmailSize] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_telemail_size') || '14');
+    return Number(savedConfig.badge_telemail_size || savedConfig.badge_telEmailSize || localStorage.getItem('badge_telemail_size') || '20');
   });
 
   const [cardMinHeight, setCardMinHeight] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_card_height') || '730');
+    return Number(savedConfig.badge_card_height || savedConfig.badge_cardMinHeight || localStorage.getItem('badge_card_height') || '687.7');
   });
   const [cardWidth, setCardWidth] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_card_width') || '395');
+    return Number(savedConfig.badge_card_width || savedConfig.badge_cardWidth || localStorage.getItem('badge_card_width') || '439.4');
   });
   const [cardPadding, setCardPadding] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_card_padding') || '28');
+    return Number(savedConfig.badge_card_padding || savedConfig.badge_cardPadding || localStorage.getItem('badge_card_padding') || '22.1');
   });
   const [badgeBg, setBadgeBg] = useState<string>(() => {
-    return localStorage.getItem('badge_card_bg') || '#121214';
+    return savedConfig.badge_badgeBg || savedConfig.badge_card_bg || localStorage.getItem('badge_card_bg') || '#121214';
   });
   const [backBadgeBg, setBackBadgeBg] = useState<string>(() => {
-    return localStorage.getItem('badge_card_back_bg') || '#E1FF39';
+    return savedConfig.badge_backBadgeBg || savedConfig.badge_card_back_bg || localStorage.getItem('badge_card_back_bg') || '#E1FF39';
   });
 
   const [cardRotateOffset, setCardRotateOffset] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_card_rotate') || '-16');
+    return Number(savedConfig.badge_card_rotate || savedConfig.badge_cardRotateOffset || localStorage.getItem('badge_card_rotate') || '-19.2');
   });
   const [cardTranslateX, setCardTranslateX] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_card_tx') || '-55');
+    return Number(savedConfig.badge_card_tx || savedConfig.badge_cardTranslateX || localStorage.getItem('badge_card_tx') || '-87.8');
   });
   const [cardTranslateY, setCardTranslateY] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_card_ty') || '16');
+    return Number(savedConfig.badge_card_ty || savedConfig.badge_cardTranslateY || localStorage.getItem('badge_card_ty') || '16');
   });
   const [tiltSensitivity, setTiltSensitivity] = useState<number>(() => {
-    return Number(localStorage.getItem('badge_tilt_sens') || '15');
+    return Number(savedConfig.badge_tiltSensitivity || localStorage.getItem('badge_tilt_sens') || '15');
   });
 
   const [showFloatingIcons, setShowFloatingIcons] = useState<boolean>(() => {
-    const saved = localStorage.getItem('badge_show_float');
-    return saved === null ? true : saved === 'true';
+    return savedConfig.badge_showFloatingIcons === 'true' || savedConfig.badge_show_float !== 'false' || localStorage.getItem('badge_show_float') !== 'false';
   });
-  const [floatScale] = useState(125);
+  const [floatScale, setFloatScale] = useState<number>(() => {
+    return Number(savedConfig.badge_floatScale || localStorage.getItem('badge_float_scale') || '125');
+  });
 
   // States for Resume Content/Typography Customization on the right
   const [timelineColor, setTimelineColor] = useState<string>(() => {
-    return localStorage.getItem('resume_timeline_color') || '#E1FF39';
+    return savedConfig.resume_timeline_color || localStorage.getItem('resume_timeline_color') || '#E1FF39';
   });
   const [roleFontSize, setRoleFontSize] = useState<number>(() => {
-    return Number(localStorage.getItem('resume_role_fs') || '22');
+    return Number(savedConfig.resume_role_fs || localStorage.getItem('resume_role_fs') || '19');
   });
   const [descFontSize, setDescFontSize] = useState<number>(() => {
-    return Number(localStorage.getItem('resume_desc_fs') || '16');
+    return Number(savedConfig.resume_desc_fs || localStorage.getItem('resume_desc_fs') || '14.5');
   });
   const [periodFontSize, setPeriodFontSize] = useState<number>(() => {
-    return Number(localStorage.getItem('resume_period_fs') || '16');
+    return Number(savedConfig.resume_period_fs || localStorage.getItem('resume_period_fs') || '16');
   });
   const [timelineSpacing, setTimelineSpacing] = useState<number>(() => {
-    return Number(localStorage.getItem('resume_timeline_spacing') || '32');
+    return Number(savedConfig.resume_timeline_spacing || localStorage.getItem('resume_timeline_spacing') || '38');
   });
-
-  // Tuner Controls
-  const [showTunerPanels, setShowTunerPanels] = useState(false);
-  const [showBadgeTuner, setShowBadgeTuner] = useState(false);
-  const [tunerTab, setTunerTab] = useState<'photo' | 'type' | 'card' | 'code'>('photo');
-  const [resumeTunerTab, setResumeTunerTab] = useState<'content' | 'education' | 'type'>('content');
-  const [editingIndex, setEditingIndex] = useState(0);
-  const [copiedCodeConfig, setCopiedCodeConfig] = useState(false);
-
-  // Helper Setters
-  const setAndSave = <T extends string | number | boolean>(
-    key: string,
-    val: T,
-    setter: React.Dispatch<React.SetStateAction<any>>
-  ) => {
-    localStorage.setItem(key, String(val));
-    setter(val);
-  };
-
-  const setAndSaveList = <T,>(
-    key: string,
-    val: T[],
-    setter: React.Dispatch<React.SetStateAction<T[]>>
-  ) => {
-    localStorage.setItem(key, JSON.stringify(val));
-    setter(val);
-  };
-
-  const applyPreset = (preset: 'default' | 'cinematic' | 'minimal' | 'bigPhoto') => {
-    if (preset === 'default') {
-      setAndSave('badge_photo_width_ratio', 2.6, setPhotoWidthRatio);
-      setAndSave('badge_photo_radius', 12, setPhotoRadius);
-      setAndSave('badge_photo_scale', 105, setPhotoScale);
-      setAndSave('badge_photo_x_offset', 0, setPhotoXOffset);
-      setAndSave('badge_photo_y_offset', -8, setPhotoYOffset);
-      setAndSave('badge_name_size', 38, setNameSize);
-      setAndSave('badge_name_lh', 42, setNameLineHeight);
-      setAndSave('badge_eng_size', 19, setEngNameSize);
-      setAndSave('badge_label_size', 10, setLabelSize);
-      setAndSave('badge_value_size', 15, setValueSize);
-      setAndSave('badge_telemail_size', 14, setTelEmailSize);
-      setAndSave('badge_card_height', 730, setCardMinHeight);
-      setAndSave('badge_card_width', 395, setCardWidth);
-      setAndSave('badge_card_padding', 28, setCardPadding);
-      setAndSave('badge_card_bg', '#121214', setBadgeBg);
-      setAndSave('badge_card_back_bg', '#E1FF39', setBackBadgeBg);
-      setAndSave('badge_card_rotate', -16, setCardRotateOffset);
-      setAndSave('badge_card_tx', -55, setCardTranslateX);
-      setAndSave('badge_card_ty', 16, setCardTranslateY);
-    } else if (preset === 'cinematic') {
-      setAndSave('badge_photo_width_ratio', 2.2, setPhotoWidthRatio);
-      setAndSave('badge_photo_radius', 20, setPhotoRadius);
-      setAndSave('badge_photo_scale', 115, setPhotoScale);
-      setAndSave('badge_photo_x_offset', 5, setPhotoXOffset);
-      setAndSave('badge_photo_y_offset', -10, setPhotoYOffset);
-      setAndSave('badge_name_size', 42, setNameSize);
-      setAndSave('badge_name_lh', 46, setNameLineHeight);
-      setAndSave('badge_eng_size', 20, setEngNameSize);
-      setAndSave('badge_label_size', 9, setLabelSize);
-      setAndSave('badge_value_size', 16, setValueSize);
-      setAndSave('badge_telemail_size', 15, setTelEmailSize);
-      setAndSave('badge_card_height', 750, setCardMinHeight);
-      setAndSave('badge_card_width', 410, setCardWidth);
-      setAndSave('badge_card_padding', 24, setCardPadding);
-      setAndSave('badge_card_bg', '#09090b', setBadgeBg);
-      setAndSave('badge_card_back_bg', '#FF1493', setBackBadgeBg);
-      setAndSave('badge_card_rotate', -10, setCardRotateOffset);
-      setAndSave('badge_card_tx', -30, setCardTranslateX);
-      setAndSave('badge_card_ty', 30, setCardTranslateY);
-    } else if (preset === 'minimal') {
-      setAndSave('badge_photo_width_ratio', 2.8, setPhotoWidthRatio);
-      setAndSave('badge_photo_radius', 0, setPhotoRadius);
-      setAndSave('badge_photo_scale', 95, setPhotoScale);
-      setAndSave('badge_photo_x_offset', -10, setPhotoXOffset);
-      setAndSave('badge_photo_y_offset', 0, setPhotoYOffset);
-      setAndSave('badge_name_size', 34, setNameSize);
-      setAndSave('badge_name_lh', 38, setNameLineHeight);
-      setAndSave('badge_eng_size', 16, setEngNameSize);
-      setAndSave('badge_label_size', 11, setLabelSize);
-      setAndSave('badge_value_size', 14, setValueSize);
-      setAndSave('badge_telemail_size', 13, setTelEmailSize);
-      setAndSave('badge_card_height', 710, setCardMinHeight);
-      setAndSave('badge_card_width', 380, setCardWidth);
-      setAndSave('badge_card_padding', 32, setCardPadding);
-      setAndSave('badge_card_bg', '#1c1917', setBadgeBg);
-      setAndSave('badge_card_back_bg', '#fafaf9', setBackBadgeBg);
-      setAndSave('badge_card_rotate', 0, setCardRotateOffset);
-      setAndSave('badge_card_tx', 0, setCardTranslateX);
-      setAndSave('badge_card_ty', 0, setCardTranslateY);
-    } else if (preset === 'bigPhoto') {
-      setAndSave('badge_photo_width_ratio', 1.8, setPhotoWidthRatio);
-      setAndSave('badge_photo_radius', 8, setPhotoRadius);
-      setAndSave('badge_photo_scale', 135, setPhotoScale);
-      setAndSave('badge_photo_x_offset', 0, setPhotoXOffset);
-      setAndSave('badge_photo_y_offset', -15, setPhotoYOffset);
-      setAndSave('badge_name_size', 32, setNameSize);
-      setAndSave('badge_name_lh', 36, setNameLineHeight);
-      setAndSave('badge_eng_size', 15, setEngNameSize);
-      setAndSave('badge_label_size', 9, setLabelSize);
-      setAndSave('badge_value_size', 13, setValueSize);
-      setAndSave('badge_telemail_size', 12, setTelEmailSize);
-      setAndSave('badge_card_height', 780, setCardMinHeight);
-      setAndSave('badge_card_width', 400, setCardWidth);
-      setAndSave('badge_card_padding', 20, setCardPadding);
-      setAndSave('badge_card_bg', '#111827', setBadgeBg);
-      setAndSave('badge_card_back_bg', '#3B82F6', setBackBadgeBg);
-      setAndSave('badge_card_rotate', -5, setCardRotateOffset);
-      setAndSave('badge_card_tx', -15, setCardTranslateX);
-      setAndSave('badge_card_ty', -15, setCardTranslateY);
-    }
-  };
-
 
   const [educationList, setEducationList] = useState<string[]>(() => {
     try {
-      const saved = localStorage.getItem('resume_education_list');
-      if (saved && (saved.includes('重庆邮电') || saved.includes('移通学院'))) return JSON.parse(saved);
+      const saved = savedConfig.resume_education_list || localStorage.getItem('resume_education_list');
+      if (saved) {
+        return typeof saved === 'string' ? JSON.parse(saved) : saved;
+      }
     } catch (e) {
       console.error(e);
     }
-    const defaultEdu = ['重庆邮电大学移通学院', '数字媒体艺术 本科'];
-    localStorage.setItem('resume_education_list', JSON.stringify(defaultEdu));
-    return defaultEdu;
+    return [
+      '重庆邮电大学移通学院',
+      '数字媒体艺术 本科'
+    ];
   });
 
-  const [experienceList, setExperienceList] = useState(() => {
+  const [experienceList, setExperienceList] = useState<any[]>(() => {
     try {
-      const saved = localStorage.getItem('resume_experience_list');
-      if (saved && saved.includes('猎豹移动')) return JSON.parse(saved);
+      const saved = savedConfig.resume_experience_list || localStorage.getItem('resume_experience_list');
+      if (saved) {
+        return typeof saved === 'string' ? JSON.parse(saved) : saved;
+      }
     } catch (e) {
       console.error(e);
     }
-    const defaultExp = [
+    return [
       {
         period: '2020.9 - 2025.6',
-        role: '资深视觉设计师',
-        company: '猎豹移动-豹趣科技',
-        description: '1. 千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
+        role: '资深视觉设计师          猎豹移动-豹趣科技',
+        company: '',
+        description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
       },
       {
         period: '2019 - 2020',
-        role: '视觉设计师',
-        company: '广州卓丰科技',
-        description: '负责相机、清理等手机软件的视觉内容设计 and 运营活动宣传和迭代。'
+        role: '视觉设计师          广州卓牛科技',
+        company: '',
+        description: '负责相机、清理等手机软件的视觉内容设计 and运营活动宣发 and 迭代。'
       },
       {
         period: '2018 - 2019',
-        role: '视觉设计师',
-        company: '广州图灵科技',
+        role: '视觉设计师          广州图灵科技          ',
+        company: '',
         description: '负责运营推广等平面内容输出和视频动画产出。'
       }
     ];
-    localStorage.setItem('resume_experience_list', JSON.stringify(defaultExp));
-    return defaultExp;
   });
 
+  // Keep Tuners off by default in raw/production code
+  const showTunerPanels = false;
+  const showBadgeTuner = false;
+  const tunerTab = 'photo';
+  const resumeTunerTab = 'content';
+  const editingIndex = 0;
+  const copiedCodeConfig = false;
+
+  const setAndSave = (key: string, value: any, setter: Function) => {
+    setter(value);
+    localStorage.setItem(key, value.toString());
+  };
+
+  const setAndSaveList = (key: string, value: any[], setter: Function) => {
+    setter(value);
+    localStorage.setItem(key, JSON.stringify(value));
+  };
+
+  const applyPreset = (presetName: string) => {
+    let config: any = {};
+    if (presetName === 'default') {
+      config = {
+        badge_photo_width_ratio: 2.6,
+        badge_photo_radius: 12,
+        badge_photo_scale: 105,
+        badge_photo_x_offset: 0,
+        badge_photo_y_offset: -8,
+        badge_name_size: 38,
+        badge_name_line_height: 42,
+        badge_eng_size: 19,
+        badge_label_size: 10,
+        badge_value_size: 15,
+        badge_telemail_size: 14,
+        badge_card_height: 730,
+        badge_card_width: 395,
+        badge_card_padding: 28,
+        badge_card_bg: '#121214',
+        badge_card_back_bg: '#E1FF39',
+        badge_card_rotate: -16,
+        badge_card_tx: -55,
+        badge_card_ty: 16,
+        badge_tilt_sens: 15,
+        badge_show_float: true,
+        badge_float_scale: 125,
+      };
+    } else if (presetName === 'cinematic') {
+      config = {
+        badge_photo_width_ratio: 3.5,
+        badge_photo_radius: 8,
+        badge_photo_scale: 110,
+        badge_photo_x_offset: 0,
+        badge_photo_y_offset: 0,
+        badge_name_size: 34,
+        badge_name_line_height: 38,
+        badge_eng_size: 16,
+        badge_label_size: 9,
+        badge_value_size: 14,
+        badge_telemail_size: 13,
+        badge_card_height: 640,
+        badge_card_width: 440,
+        badge_card_padding: 24,
+        badge_card_bg: '#0a0f1d',
+        badge_card_back_bg: '#22d3ee',
+        badge_card_rotate: -8,
+        badge_card_tx: -30,
+        badge_card_ty: 10,
+        badge_tilt_sens: 12,
+        badge_show_float: true,
+        badge_float_scale: 100,
+      };
+    } else if (presetName === 'minimal') {
+      config = {
+        badge_photo_width_ratio: 2.2,
+        badge_photo_radius: 100,
+        badge_photo_scale: 100,
+        badge_photo_x_offset: 0,
+        badge_photo_y_offset: 0,
+        badge_name_size: 32,
+        badge_name_line_height: 36,
+        badge_eng_size: 14,
+        badge_label_size: 9,
+        badge_value_size: 13,
+        badge_telemail_size: 13,
+        badge_card_height: 700,
+        badge_card_width: 360,
+        badge_card_padding: 20,
+        badge_card_bg: '#18181b',
+        badge_card_back_bg: '#ec4899',
+        badge_card_rotate: -12,
+        badge_card_tx: -40,
+        badge_card_ty: 20,
+        badge_tilt_sens: 20,
+        badge_show_float: false,
+        badge_float_scale: 100,
+      };
+    } else if (presetName === 'bigPhoto') {
+      config = {
+        badge_photo_width_ratio: 1.5,
+        badge_photo_radius: 16,
+        badge_photo_scale: 115,
+        badge_photo_x_offset: 0,
+        badge_photo_y_offset: -12,
+        badge_name_size: 36,
+        badge_name_line_height: 40,
+        badge_eng_size: 18,
+        badge_label_size: 10,
+        badge_value_size: 15,
+        badge_telemail_size: 14,
+        badge_card_height: 780,
+        badge_card_width: 420,
+        badge_card_padding: 30,
+        badge_card_bg: '#141414',
+        badge_card_back_bg: '#fb923c',
+        badge_card_rotate: -20,
+        badge_card_tx: -60,
+        badge_card_ty: 24,
+        badge_tilt_sens: 18,
+        badge_show_float: true,
+        badge_float_scale: 110,
+      };
+    }
+
+    setPhotoWidthRatio(config.badge_photo_width_ratio);
+    setPhotoRadius(config.badge_photo_radius);
+    setPhotoScale(config.badge_photo_scale);
+    setPhotoXOffset(config.badge_photo_x_offset);
+    setPhotoYOffset(config.badge_photo_y_offset);
+    setNameSize(config.badge_name_size);
+    setNameLineHeight(config.badge_name_line_height);
+    setEngNameSize(config.badge_eng_size);
+    setLabelSize(config.badge_label_size);
+    setValueSize(config.badge_value_size);
+    setTelEmailSize(config.badge_telemail_size);
+    setCardMinHeight(config.badge_card_height);
+    setCardWidth(config.badge_card_width);
+    setCardPadding(config.badge_card_padding);
+    setBadgeBg(config.badge_card_bg);
+    setBackBadgeBg(config.badge_card_back_bg);
+    setCardRotateOffset(config.badge_card_rotate);
+    setCardTranslateX(config.badge_card_tx);
+    setCardTranslateY(config.badge_card_ty);
+    setTiltSensitivity(config.badge_tilt_sens);
+    setShowFloatingIcons(config.badge_show_float);
+    setFloatScale(config.badge_float_scale);
+
+    Object.entries(config).forEach(([key, val]) => {
+      localStorage.setItem(key, val!.toString());
+    });
+  };
+
+  // Clean empty effect with auto-saving to workspace disk
   React.useEffect(() => {
-    // Watertight Migration: ensure user's browser localStorage has the exact XUZIYI data and no stale Han Li leftovers
-    const nameVal = localStorage.getItem('badge_name');
-    const expVal = localStorage.getItem('resume_experience_list');
-    const photoVal = localStorage.getItem('badge_photo');
-    const eduVal = localStorage.getItem('resume_education_list');
-
-    const needsReset = !nameVal || 
-                       nameVal.includes('李瀚') || 
-                       nameVal.includes('韩李') || 
-                       nameVal.includes('HAN LI') ||
-                       (expVal && (expVal.includes('Stockholm') || expVal.includes('Paris') || expVal.includes('Zürich') || !expVal.includes('猎豹移动'))) ||
-                       (eduVal && (eduVal.includes('Zürich') || eduVal.includes('苏黎世') || !eduVal.includes('重庆邮电'))) ||
-                       (photoVal && (photoVal.includes('unsplash') || photoVal.startsWith('http')));
-
-    if (needsReset) {
-      console.log('Migrating stale legacy local storage variables to XUZIYI / RYE XU defaults...');
-
-      const targetName = '许\n子熠';
-      localStorage.setItem('badge_name', targetName);
-      setName(targetName);
-
-      const targetEngName = 'RYE XU';
-      localStorage.setItem('badge_eng_name', targetEngName);
-      setEnglishName(targetEngName);
-
-      const targetYears = '7+ YEARS EXP';
-      localStorage.setItem('badge_years_exp', targetYears);
-      setYearsExp(targetYears);
-
-      const targetBirthday = '1996.09.05';
-      localStorage.setItem('badge_birthday', targetBirthday);
-      setBirthday(targetBirthday);
-
-      const targetTel = '153-7735-6930';
-      localStorage.setItem('badge_tel', targetTel);
-      setTel(targetTel);
-
-      const targetEmail = 'xuziyi905@outlook.com';
-      localStorage.setItem('badge_email', targetEmail);
-      setEmail(targetEmail);
-
-      const targetEdu = ['重庆邮电大学移通学院', '数字媒体艺术 本科'];
-      localStorage.setItem('resume_education_list', JSON.stringify(targetEdu));
-      setEducationList(targetEdu);
-
-      const targetExp = [
-        {
-          period: '2020.9 - 2025.6',
-          role: '资深视觉设计师',
-          company: '猎豹移动-豹趣科技',
-          description: '1. 千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
-        },
-        {
-          period: '2019 - 2020',
-          role: '视觉设计师',
-          company: '广州卓丰科技',
-          description: '负责相机、清理等手机软件的视觉内容设计 and 运营活动宣传和迭代。'
-        },
-        {
-          period: '2018 - 2019',
-          role: '视觉设计师',
-          company: '广州图灵科技',
-          description: '负责运营推广等平面内容输出和视频动画产出。'
-        }
-      ];
-      localStorage.setItem('resume_experience_list', JSON.stringify(targetExp));
-      setExperienceList(targetExp);
-
-      const defaultPhoto = '/pic.jpg';
-      localStorage.setItem('badge_photo', defaultPhoto);
-      setBadgePhoto(defaultPhoto);
+    const config: Record<string, any> = {};
+    for (let i = 0; i < localStorage.length; i++) {
+      const key = localStorage.key(i);
+      if (key && (key.startsWith('badge_') || key.startsWith('resume_'))) {
+        config[key] = localStorage.getItem(key);
+      }
+    }
+    if (Object.keys(config).length > 0) {
+      fetch('/api/save-config', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(config)
+      })
+      .then(res => res.json())
+      .then(data => console.log('Config autosaved successfully on server:', data))
+      .catch(err => console.error('Failed to autosave config:', err));
     }
   }, []);
 
@@ -1054,1095 +1006,15 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                 <input
                   type="file"
                   ref={fileInputRef}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                  }}
                   onChange={handlePhotoUpload}
                   accept="image/*"
                   className="hidden"
                 />
               </div>
             </motion.div>
-
-            {/* Quick Interactive Tuner Trigger Button */}
-            <div className="mt-7 flex flex-col items-center gap-2 relative z-50">
-              <button
-                type="button"
-                onClick={() => {
-                  setShowTunerPanels(!showTunerPanels);
-                  if (!showBadgeTuner) {
-                    setShowBadgeTuner(true);
-                  }
-                }}
-                className={`px-5 py-3 rounded-xl font-mono text-[10.5px] font-black tracking-wider uppercase transition-all duration-300 flex items-center gap-2.5 shadow-xl border cursor-pointer hover:scale-[1.025] active:scale-95 ${
-                  showTunerPanels
-                    ? 'bg-neutral-900 text-white border-neutral-700 hover:bg-neutral-800'
-                    : 'bg-[#E1FF39] text-neutral-950 border-transparent hover:bg-opacity-95 hover:shadow-[#E1FF39]/20'
-                }`}
-                style={showTunerPanels ? {} : { backgroundColor: backBadgeBg }}
-              >
-                <Sliders className="w-4 h-4" />
-                {showTunerPanels ? '🔒 CLOSE DESIGN STUDIO TUNER / 关闭微调台' : '🔧 OPEN DESIGN STUDIO TUNER / 展开设计微调台'}
-              </button>
-              <span className="text-[10px] font-mono text-zinc-500 uppercase tracking-widest leading-none select-none">
-                Adjust portrait, offsets, typography & spacing in real-time
-              </span>
-            </div>
-
-            {/* --- COLLAPSIBLE ID BADGE DECK TUNER --- */}
-            {showTunerPanels && (
-              <div className="w-full max-w-[395px] mt-8 bg-[#09090b]/90 rounded-2xl p-5 border border-neutral-800/85 shadow-2xl relative z-40 select-none animate-fade-in text-left">
-              <button
-                type="button"
-                onClick={() => setShowBadgeTuner(!showBadgeTuner)}
-                className="w-full flex items-center justify-between text-xs font-sans font-black text-neutral-300 hover:text-white transition-all cursor-pointer border-b border-neutral-800/70 pb-3 mb-4"
-              >
-                <div className="flex items-center gap-2">
-                  <Sliders className="w-4 h-4 text-[#E1FF39]" style={{ color: backBadgeBg }} />
-                  <span className="text-xs tracking-widest text-neutral-100 uppercase font-bold">
-                    ID Badge Tuner / 工作牌微调台
-                  </span>
-                  <span className="text-[9px] font-normal text-neutral-500 px-1.5 py-0.5 border border-neutral-800 rounded bg-white/5">
-                    {showBadgeTuner ? '折叠' : '展开'}
-                  </span>
-                </div>
-                <ChevronDown className={`w-3.5 h-3.5 transition-transform duration-300 ${showBadgeTuner ? 'rotate-180 text-[#E1FF39]' : 'text-neutral-500'}`} style={showBadgeTuner ? { color: backBadgeBg } : {}} />
-              </button>
-
-              {showBadgeTuner && (
-                <>
-                  <div className="flex justify-end mb-3">
-                    <button
-                      type="button"
-                      onClick={() => applyPreset('default')}
-                      className="text-[10px] font-mono text-[#E1FF39] bg-[#E1FF39]/10 px-2 py-0.5 rounded border border-[#E1FF39]/20 hover:bg-[#E1FF39]/23 transition-all duration-200 active:scale-95 flex items-center gap-1 cursor-pointer"
-                      style={{ color: backBadgeBg, backgroundColor: `${backBadgeBg}15`, borderColor: `${backBadgeBg}25` }}
-                      title="重置所有参数为默认 / Reset all parameters"
-                    >
-                      <RotateCcw className="w-2.5 h-2.5" />
-                      RECODE
-                    </button>
-                  </div>
-
-              {/* Archetype Quick Presets (快速预设风格) */}
-              <div className="grid grid-cols-4 gap-1.5 mb-4 max-w-full">
-                <button
-                  type="button"
-                  onClick={() => applyPreset('default')}
-                  className="text-[9.5px] py-1 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:border-[#E1FF39]/40 hover:text-white transition-all font-sans font-extrabold cursor-pointer"
-                >
-                  标准默认
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyPreset('cinematic')}
-                  className="text-[9.5px] py-1 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:border-cyan-400/40 hover:text-white transition-all font-sans font-extrabold cursor-pointer"
-                >
-                  宽屏冷青
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyPreset('minimal')}
-                  className="text-[9.5px] py-1 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:border-pink-500/40 hover:text-white transition-all font-sans font-extrabold cursor-pointer"
-                >
-                  极简暗粉
-                </button>
-                <button
-                  type="button"
-                  onClick={() => applyPreset('bigPhoto')}
-                  className="text-[9.5px] py-1 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:border-orange-400/40 hover:text-white transition-all font-sans font-extrabold cursor-pointer"
-                >
-                  头像特写
-                </button>
-              </div>
-
-              {/* Slider Deck Tab selectors */}
-              <div className="flex border-b border-neutral-800 mb-4 h-8 gap-1">
-                {(['photo', 'type', 'card', 'code'] as const).map((tab) => {
-                  const labelMap = {
-                    photo: { text: '📸 头像', icon: Image },
-                    type: { text: '✍️ 文字', icon: Type },
-                    card: { text: '💳 卡片', icon: CreditCard },
-                    code: { text: '📋 导出', icon: CodeIcon },
-                  };
-                  const isActive = tunerTab === tab;
-                  const Icon = labelMap[tab].icon;
-                  return (
-                    <button
-                      key={tab}
-                      type="button"
-                      onClick={() => setTunerTab(tab)}
-                      className={`flex-1 flex items-center justify-center gap-1 text-[10px] pb-1.5 font-sans font-bold border-b-2 transition-all transition-colors cursor-pointer ${
-                        isActive 
-                          ? 'border-[#E1FF39] text-[#E1FF39]' 
-                          : 'border-transparent text-neutral-500 hover:text-neutral-300'
-                      }`}
-                      style={isActive ? { borderColor: backBadgeBg, color: backBadgeBg } : {}}
-                    >
-                      <Icon className="w-3 h-3" />
-                      {labelMap[tab].text}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* TAB CONTENT: PHOTO CROPPER */}
-              {tunerTab === 'photo' && (
-                <div className="space-y-3.5">
-                  {/* Photo Width cols ratio (1 to 4 out of 5 columns) */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">照片宽度比 (占5格中的几格)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{photoWidthRatio.toFixed(2)} / 5 ({(photoWidthRatio / 5 * 100).toFixed(1)}%)</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_width_ratio', Math.max(0.5, Number((photoWidthRatio - 0.05).toFixed(2))), setPhotoWidthRatio)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="0.5" max="4.5" step="0.05" 
-                        value={photoWidthRatio} 
-                        onChange={(e) => setAndSave('badge_photo_width_ratio', Number(Number(e.target.value).toFixed(2)), setPhotoWidthRatio)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_width_ratio', Math.min(4.5, Number((photoWidthRatio + 0.05).toFixed(2))), setPhotoWidthRatio)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Photo Zoom/Scale */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">相片缩放尺度 (Scale)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{photoScale.toFixed(1)}%</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_scale', Math.max(50, Number((photoScale - 0.1).toFixed(1))), setPhotoScale)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="50" max="250" step="0.1" 
-                        value={photoScale} 
-                        onChange={(e) => setAndSave('badge_photo_scale', Number(Number(e.target.value).toFixed(1)), setPhotoScale)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_scale', Math.min(250, Number((photoScale + 0.1).toFixed(1))), setPhotoScale)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Photo Left/Right offset */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">相片水平偏移 (X Offset)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{photoXOffset.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_x_offset', Math.max(-100, Number((photoXOffset - 0.1).toFixed(1))), setPhotoXOffset)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="-100" max="100" step="0.1" 
-                        value={photoXOffset} 
-                        onChange={(e) => setAndSave('badge_photo_x_offset', Number(Number(e.target.value).toFixed(1)), setPhotoXOffset)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_x_offset', Math.min(100, Number((photoXOffset + 0.1).toFixed(1))), setPhotoXOffset)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Photo Top/Bottom offset */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">相片垂直偏移 (Y Offset)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{photoYOffset.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_y_offset', Math.max(-100, Number((photoYOffset - 0.1).toFixed(1))), setPhotoYOffset)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="-100" max="100" step="0.1" 
-                        value={photoYOffset} 
-                        onChange={(e) => setAndSave('badge_photo_y_offset', Number(Number(e.target.value).toFixed(1)), setPhotoYOffset)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_y_offset', Math.min(100, Number((photoYOffset + 0.1).toFixed(1))), setPhotoYOffset)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Photo Roundness */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">相片倒角弧度 (Radius)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{photoRadius.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_radius', Math.max(0, Number((photoRadius - 0.1).toFixed(1))), setPhotoRadius)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="0" max="40" step="0.1" 
-                        value={photoRadius} 
-                        onChange={(e) => setAndSave('badge_photo_radius', Number(Number(e.target.value).toFixed(1)), setPhotoRadius)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_photo_radius', Math.min(40, Number((photoRadius + 0.1).toFixed(1))), setPhotoRadius)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB CONTENT: TYPOGRAPHY CUSTOMIZATIONS */}
-              {tunerTab === 'type' && (
-                <div className="space-y-3.5">
-                  {/* Name Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">中文姓名尺寸 (Name Font)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{nameSize.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => {
-                          const size = Math.max(16, Number((nameSize - 0.1).toFixed(1)));
-                          setAndSave('badge_name_size', size, setNameSize);
-                          setAndSave('badge_name_lh', Number((size + 4).toFixed(1)), setNameLineHeight);
-                        }}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="16" max="64" step="0.1" 
-                        value={nameSize} 
-                        onChange={(e) => {
-                          const size = Number(Number(e.target.value).toFixed(1));
-                          setAndSave('badge_name_size', size, setNameSize);
-                          setAndSave('badge_name_lh', Number((size + 4).toFixed(1)), setNameLineHeight);
-                        }}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => {
-                          const size = Math.min(64, Number((nameSize + 0.1).toFixed(1)));
-                          setAndSave('badge_name_size', size, setNameSize);
-                          setAndSave('badge_name_lh', Number((size + 4).toFixed(1)), setNameLineHeight);
-                        }}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* English Name Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">英文姓名尺寸 (EN Name Font)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{engNameSize.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_eng_size', Math.max(10, Number((engNameSize - 0.1).toFixed(1))), setEngNameSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="10" max="32" step="0.1" 
-                        value={engNameSize} 
-                        onChange={(e) => setAndSave('badge_eng_size', Number(Number(e.target.value).toFixed(1)), setEngNameSize)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_eng_size', Math.min(32, Number((engNameSize + 0.1).toFixed(1))), setEngNameSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Labels (e.g. NOME / YEARS EXP) Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">信息项标签尺寸 (Label Font)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{labelSize.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_label_size', Math.max(6, Number((labelSize - 0.1).toFixed(1))), setLabelSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="6" max="18" step="0.1" 
-                        value={labelSize} 
-                        onChange={(e) => setAndSave('badge_label_size', Number(Number(e.target.value).toFixed(1)), setLabelSize)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_label_size', Math.min(18, Number((labelSize + 0.1).toFixed(1))), setLabelSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Secondary Values (e.g. 7+ Years, Birthday, Tel) Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">普通项内容尺寸 (Value Font)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{valueSize.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_value_size', Math.max(10, Number((valueSize - 0.1).toFixed(1))), setValueSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="10" max="24" step="0.1" 
-                        value={valueSize} 
-                        onChange={(e) => setAndSave('badge_value_size', Number(Number(e.target.value).toFixed(1)), setValueSize)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_value_size', Math.min(24, Number((valueSize + 0.1).toFixed(1))), setValueSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Email text Font Size (which requires more narrow bounds to prevent truncation) */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">邮箱文本内容尺寸 (Email Font)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{telEmailSize.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_telemail_size', Math.max(8, Number((telEmailSize - 0.1).toFixed(1))), setTelEmailSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="8" max="20" step="0.1" 
-                        value={telEmailSize} 
-                        onChange={(e) => setAndSave('badge_telemail_size', Number(Number(e.target.value).toFixed(1)), setTelEmailSize)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_telemail_size', Math.min(20, Number((telEmailSize + 0.1).toFixed(1))), setTelEmailSize)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB CONTENT: CARD DECK GEOMETRIES */}
-              {tunerTab === 'card' && (
-                <div className="space-y-3.5">
-                  {/* Card Min Height */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">工作牌总高度 (Card Height)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{cardMinHeight.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_height', Math.max(400, Number((cardMinHeight - 0.1).toFixed(1))), setCardMinHeight)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="400" max="1000" step="0.1" 
-                        value={cardMinHeight} 
-                        onChange={(e) => setAndSave('badge_card_height', Number(Number(e.target.value).toFixed(1)), setCardMinHeight)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_height', Math.min(1000, Number((cardMinHeight + 0.1).toFixed(1))), setCardMinHeight)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Card Width */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">工作牌总宽度 (Card Width)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{cardWidth.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_width', Math.max(280, Number((cardWidth - 0.1).toFixed(1))), setCardWidth)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="280" max="550" step="0.1" 
-                        value={cardWidth} 
-                        onChange={(e) => setAndSave('badge_card_width', Number(Number(e.target.value).toFixed(1)), setCardWidth)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_width', Math.min(550, Number((cardWidth + 0.1).toFixed(1))), setCardWidth)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Card Inner Padding */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">卡片内部留白 (Inner Padding)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{cardPadding.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_padding', Math.max(8, Number((cardPadding - 0.1).toFixed(1))), setCardPadding)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="8" max="48" step="0.1" 
-                        value={cardPadding} 
-                        onChange={(e) => setAndSave('badge_card_padding', Number(Number(e.target.value).toFixed(1)), setCardPadding)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_padding', Math.min(48, Number((cardPadding + 0.1).toFixed(1))), setCardPadding)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Back Card Rotations angle */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">底色硬板偏转角 (Backplate Angle)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{cardRotateOffset.toFixed(1)}°</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_rotate', Math.max(-45, Number((cardRotateOffset - 0.1).toFixed(1))), setCardRotateOffset)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="-45" max="15" step="0.1" 
-                        value={cardRotateOffset} 
-                        onChange={(e) => setAndSave('badge_card_rotate', Number(Number(e.target.value).toFixed(1)), setCardRotateOffset)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_rotate', Math.min(15, Number((cardRotateOffset + 0.1).toFixed(1))), setCardRotateOffset)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Back Card Translate X */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">底色硬板水平移动 (Backplate Shift X)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{cardTranslateX.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_tx', Math.max(-200, Number((cardTranslateX - 0.1).toFixed(1))), setCardTranslateX)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="-200" max="100" step="0.1" 
-                        value={cardTranslateX} 
-                        onChange={(e) => setAndSave('badge_card_tx', Number(Number(e.target.value).toFixed(1)), setCardTranslateX)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_tx', Math.min(100, Number((cardTranslateX + 0.1).toFixed(1))), setCardTranslateX)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Back Card Translate Y */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">底色硬板垂直移动 (Backplate Shift Y)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: backBadgeBg }}>{cardTranslateY.toFixed(1)}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_ty', Math.max(-150, Number((cardTranslateY - 0.1).toFixed(1))), setCardTranslateY)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="-150" max="150" step="0.1" 
-                        value={cardTranslateY} 
-                        onChange={(e) => setAndSave('badge_card_ty', Number(Number(e.target.value).toFixed(1)), setCardTranslateY)}
-                        className="flex-1 accent-[#E1FF39] h-1"
-                        style={{ accentColor: backBadgeBg }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('badge_card_ty', Math.min(150, Number((cardTranslateY + 0.1).toFixed(1))), setCardTranslateY)}
-                        className="w-6 h-6 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs font-bold leading-none select-none cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Theme Colors selector */}
-                  <div className="grid grid-cols-2 gap-3.5 pt-1">
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] text-neutral-400 font-sans">主卡底色</span>
-                      <div className="flex items-center gap-2 bg-neutral-900 p-1.5 rounded border border-neutral-800">
-                        <input 
-                          type="color" 
-                          value={badgeBg} 
-                          onChange={(e) => setAndSave('badge_card_bg', e.target.value, setBadgeBg)}
-                          className="w-6 h-6 bg-transparent rounded cursor-pointer border-0"
-                        />
-                        <span className="text-[10px] font-mono text-neutral-300 uppercase">{badgeBg}</span>
-                      </div>
-                    </div>
-                    <div className="flex flex-col gap-1">
-                      <span className="text-[10px] text-neutral-400 font-sans">背板底板</span>
-                      <div className="flex items-center gap-2 bg-neutral-900 p-1.5 rounded border border-neutral-800">
-                        <input 
-                          type="color" 
-                          value={backBadgeBg} 
-                          onChange={(e) => setAndSave('badge_card_back_bg', e.target.value, setBackBadgeBg)}
-                          className="w-6 h-6 bg-transparent rounded cursor-pointer border-0"
-                        />
-                        <span className="text-[10px] font-mono text-neutral-300 uppercase">{backBadgeBg}</span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Enable floating logos Toggle */}
-                  <div className="flex items-center justify-between bg-neutral-900 p-2.5 rounded-lg border border-neutral-800/80 mt-1">
-                    <span className="text-[10px] text-neutral-300 font-sans font-bold">显示背景悬浮工具图标</span>
-                    <button
-                      type="button"
-                      onClick={() => setAndSave('badge_show_float', !showFloatingIcons, setShowFloatingIcons)}
-                      className={`text-[9.5px] font-mono px-3 py-1 rounded transition-all leading-none border cursor-pointer select-none ${
-                        showFloatingIcons 
-                          ? 'bg-[#E1FF39]/12 border-[#E1FF39]/30 text-[#E1FF39]' 
-                          : 'bg-neutral-950 border-neutral-800 text-neutral-500'
-                      }`}
-                      style={showFloatingIcons ? { color: backBadgeBg, borderColor: `${backBadgeBg}30`, backgroundColor: `${backBadgeBg}12` } : {}}
-                    >
-                      {showFloatingIcons ? 'ON / 开启' : 'OFF / 隐藏'}
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB CONTENT: CODE BAKE EXPORT */}
-              {tunerTab === 'code' && (
-                <div className="space-y-3.5">
-                  <div className="rounded-lg bg-neutral-950 p-3.5 border border-neutral-800/70 font-mono text-[10px] text-zinc-400 overflow-x-auto max-h-[190px] overflow-y-auto leading-relaxed relative">
-                    <button
-                      type="button"
-                      className="absolute right-2 top-2 p-1 rounded bg-neutral-900 border border-neutral-800 hover:border-neutral-500 text-neutral-400 hover:text-white transition-all cursor-pointer"
-                      title="Copy code configuration snippet"
-                      onClick={() => {
-                        const jsonCode = JSON.stringify({
-                          photoWidthRatio,
-                          photoRadius,
-                          photoScale,
-                          photoXOffset,
-                          photoYOffset,
-                          nameSize,
-                          engNameSize,
-                          labelSize,
-                          valueSize,
-                          telEmailSize,
-                          cardMinHeight,
-                          cardWidth,
-                          cardPadding,
-                          badgeBg,
-                          backBadgeBg,
-                          cardRotateOffset,
-                          cardTranslateX,
-                          cardTranslateY,
-                          tiltSensitivity,
-                          showFloatingIcons,
-                          floatScale
-                        }, null, 2);
-                        navigator.clipboard.writeText(jsonCode);
-                        setCopiedCodeConfig(true);
-                        setTimeout(() => setCopiedCodeConfig(false), 2000);
-                      }}
-                    >
-                      {copiedCodeConfig ? <Check className="w-3.5 h-3.5 text-green-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    </button>
-                    
-                    <span className="text-neutral-500 block pb-1">// Working Badge Settings Code</span>
-                    <span className="text-[#FF79C6]">const </span>
-                    <span className="text-[#50FA7B]">badgeConfig </span>= &#123;
-                    <div className="pl-3.5">
-                      <div>photoWidthRatio: <span className="text-[#BD93F9]">{photoWidthRatio}</span>,</div>
-                      <div>photoRadius: <span className="text-[#BD93F9]">{photoRadius}</span>,</div>
-                      <div>photoScale: <span className="text-[#BD93F9]">{photoScale}</span>,</div>
-                      <div>photoXOffset: <span className="text-[#BD93F9]">{photoXOffset}</span>,</div>
-                      <div>photoYOffset: <span className="text-[#BD93F9]">{photoYOffset}</span>,</div>
-                      <div>nameSize: <span className="text-[#BD93F9]">{nameSize}</span>,</div>
-                      <div>engNameSize: <span className="text-[#BD93F9]">{engNameSize}</span>,</div>
-                      <div>labelSize: <span className="text-[#BD93F9]">{labelSize}</span>,</div>
-                      <div>valueSize: <span className="text-[#BD93F9]">{valueSize}</span>,</div>
-                      <div>cardMinHeight: <span className="text-[#BD93F9]">{cardMinHeight}</span>,</div>
-                      <div>cardWidth: <span className="text-[#BD93F9]">{cardWidth}</span>,</div>
-                      <div>cardPadding: <span className="text-[#BD93F9]">{cardPadding}</span>,</div>
-                      <div>badgeBg: <span className="text-[#F1FA8C]">"{badgeBg}"</span>,</div>
-                      <div>backBadgeBg: <span className="text-[#F1FA8C]">"{backBadgeBg}"</span>,</div>
-                      <div>cardRotateOffset: <span className="text-[#BD93F9]">{cardRotateOffset}</span>,</div>
-                      <div>cardTranslateX: <span className="text-[#BD93F9]">{cardTranslateX}</span>,</div>
-                      <div>cardTranslateY: <span className="text-[#BD93F9]">{cardTranslateY}</span></div>
-                    </div>
-                    &#125;;
-                  </div>
-                  <div className="text-[9.5px] font-sans text-neutral-500 italic flex items-center gap-1">
-                    <Info className="w-3.5 h-3.5 text-[#E1FF39] shrink-0" style={{ color: backBadgeBg }} />
-                    <span>微调完成后，点击右上角复制，即可将配置永久保存在您的代码中！</span>
-                  </div>
-                </div>
-              )}
-                </>
-              )}
-            </div>
-            )}
-
-            {/* --- NEW: RESUME CONTENT & TYPOGRAPHY TUNER (右侧文字与简历内容微调台) --- */}
-            {showTunerPanels && (
-              <div className="w-full max-w-[395px] mt-6 bg-[#09090b]/95 rounded-2xl p-5 border border-neutral-800/90 shadow-2xl relative z-40 select-none animate-fade-in text-left">
-              <div className="flex items-center justify-between border-b border-neutral-800/70 pb-3 mb-4">
-                <div className="flex items-center gap-2 font-sans">
-                  <span className="text-sm">📝</span>
-                  <span className="text-xs font-black tracking-widest text-[#E1FF39] uppercase font-bold" style={{ color: timelineColor }}>
-                    Resume Tuner / 文字与排版微调台
-                  </span>
-                </div>
-                <span className="text-[9px] font-mono bg-[#E1FF39]/10 text-[#E1FF39] px-1.5 py-0.5 rounded border border-[#E1FF39]/30" style={{ color: timelineColor, borderColor: timelineColor, backgroundColor: `${timelineColor}10` }}>
-                  ACTIVE
-                </span>
-              </div>
-
-              {/* Tab Selector inside Resume Tuner */}
-              <div className="flex border-b border-neutral-805 mb-4 h-8 gap-0.5">
-                {(['content', 'education', 'type'] as const).map((tab) => {
-                  const labelMap = {
-                    content: { text: '💼 履历内容', icon: Briefcase },
-                    education: { text: '🎓 教育背景', icon: null },
-                    type: { text: '🎨 样式间距', icon: Type },
-                  };
-                  const isActive = resumeTunerTab === tab;
-                  return (
-                    <button
-                      key={tab}
-                      type="button"
-                      onClick={() => setResumeTunerTab(tab)}
-                      className={`flex-1 flex items-center justify-center gap-1 text-[9.5px] pb-1.5 font-sans font-bold border-b-2 transition-all cursor-pointer ${
-                        isActive 
-                          ? 'border-[#E1FF39] text-[#E1FF39]' 
-                          : 'border-transparent text-neutral-500 hover:text-neutral-300'
-                      }`}
-                      style={isActive ? { borderColor: timelineColor, color: timelineColor } : {}}
-                    >
-                      {tab === 'content' && <Briefcase className="w-3 h-3 text-[#E1FF39]" style={{ color: timelineColor }} />}
-                      {tab === 'education' && <span className="text-[10px] leading-none shrink-0" style={{ color: timelineColor }}>🎓</span>}
-                      {tab === 'type' && <Type className="w-3 h-3 text-[#E1FF39]" style={{ color: timelineColor }} />}
-                      {labelMap[tab].text}
-                    </button>
-                  );
-                })}
-              </div>
-
-              {/* TAB 1: CONTENT EDITING (履历编辑) */}
-              {resumeTunerTab === 'content' && (
-                <div className="space-y-4">
-                  {/* Item Selector Chips */}
-                  <div className="flex flex-wrap gap-1 mb-2 max-h-[85px] overflow-y-auto pr-1">
-                    {experienceList.map((_: any, i: number) => (
-                      <button
-                        key={i}
-                        type="button"
-                        onClick={() => setEditingIndex(i)}
-                        className={`text-[9.5px] px-2.5 py-1 rounded transition-all cursor-pointer font-extrabold ${
-                          editingIndex === i
-                            ? 'bg-white text-black font-extrabold'
-                            : 'bg-neutral-900 text-neutral-400 hover:bg-neutral-850'
-                        }`}
-                      >
-                        学识履历 {i + 1}
-                      </button>
-                    ))}
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const newItem = {
-                          period: '2026 - Present',
-                          role: 'Independent Visual Specialist / 独立视觉创意官',
-                          company: 'Paris / Shanghai',
-                          description: '动态视觉策划：定制化交互式布局解构方案与学术型字形标定理论。'
-                        };
-                        const updated = [...experienceList, newItem];
-                        setAndSaveList('resume_experience_list', updated, setExperienceList);
-                        setEditingIndex(updated.length - 1);
-                      }}
-                      className="text-[9px] px-2 py-1 rounded bg-emerald-950/45 border border-emerald-800 text-emerald-400 hover:bg-emerald-900 transition-all cursor-pointer font-bold"
-                    >
-                      + 新增经历
-                    </button>
-                  </div>
-
-                  {experienceList[editingIndex] && (
-                    <div className="space-y-3 p-3 bg-neutral-950 rounded-lg border border-neutral-900 text-left">
-                      {/* Period */}
-                      <div className="flex flex-col gap-1">
-                        <label className="text-[8.5px] text-neutral-500 font-mono uppercase">时间周期 / Period</label>
-                        <input
-                          type="text"
-                          value={experienceList[editingIndex].period || ''}
-                          onChange={(e) => {
-                            const updated = [...experienceList];
-                            updated[editingIndex] = { ...updated[editingIndex], period: e.target.value };
-                            setAndSaveList('resume_experience_list', updated, setExperienceList);
-                          }}
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-neutral-500 font-mono"
-                        />
-                      </div>
-
-                      {/* Role */}
-                      <div className="flex flex-col gap-1">
-                        <label className="text-[8.5px] text-neutral-500 font-mono uppercase">职务名称 / Position Role</label>
-                        <input
-                          type="text"
-                          value={experienceList[editingIndex].role || ''}
-                          onChange={(e) => {
-                            const updated = [...experienceList];
-                            updated[editingIndex] = { ...updated[editingIndex], role: e.target.value };
-                            setAndSaveList('resume_experience_list', updated, setExperienceList);
-                          }}
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-neutral-550 font-sans font-bold"
-                        />
-                      </div>
-
-                      {/* Company */}
-                      <div className="flex flex-col gap-1">
-                        <label className="text-[8.5px] text-neutral-500 font-mono uppercase">机构名称与地域 / Affiliation & Location</label>
-                        <input
-                          type="text"
-                          value={experienceList[editingIndex].company || ''}
-                          onChange={(e) => {
-                            const updated = [...experienceList];
-                            updated[editingIndex] = { ...updated[editingIndex], company: e.target.value };
-                            setAndSaveList('resume_experience_list', updated, setExperienceList);
-                          }}
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-neutral-550 font-sans"
-                        />
-                      </div>
-
-                      {/* Description */}
-                      <div className="flex flex-col gap-1">
-                        <label className="text-[8.5px] text-neutral-500 font-sans uppercase">工作职责描述 (双语/提示：用冒号“：”分隔可高亮并自动排版)</label>
-                        <textarea
-                          rows={4}
-                          value={experienceList[editingIndex].description || ''}
-                          onChange={(e) => {
-                            const updated = [...experienceList];
-                            updated[editingIndex] = { ...updated[editingIndex], description: e.target.value };
-                            setAndSaveList('resume_experience_list', updated, setExperienceList);
-                          }}
-                          className="w-full bg-neutral-900 border border-neutral-800 rounded px-2 py-1 text-xs text-white focus:outline-none focus:border-neutral-500 font-sans leading-relaxed resize-none"
-                        />
-                      </div>
-
-                      {/* Delete Item button */}
-                      {experienceList.length > 1 && (
-                        <div className="flex justify-end pt-1">
-                          <button
-                            type="button"
-                            onClick={() => {
-                              const updated = experienceList.filter((_, i: number) => i !== editingIndex);
-                              setAndSaveList('resume_experience_list', updated, setExperienceList);
-                              setEditingIndex(Math.max(0, editingIndex - 1));
-                            }}
-                            className="text-[9px] px-2 py-1 text-rose-400 hover:text-white hover:bg-rose-950 border border-rose-955 rounded transition-all cursor-pointer font-bold"
-                          >
-                            🗑️ 删除此经历条目
-                          </button>
-                        </div>
-                      )}
-                    </div>
-                  )}
-                </div>
-              )}
-
-              {/* TAB 2: EDUCATION EDITING (教育背景) */}
-              {resumeTunerTab === 'education' && (
-                <div className="space-y-4">
-                  <div className="text-left text-[10px] text-neutral-400">
-                    履历底部毕业院校与学术合作背景
-                  </div>
-
-                  <div className="space-y-1.5 max-h-[160px] overflow-y-auto pr-1 animate-fade-in font-sans">
-                    {educationList.map((edu: string, idx: number) => (
-                      <div key={idx} className="flex items-center gap-2 bg-neutral-950 p-2 rounded border border-neutral-900 justify-between">
-                        <input
-                          type="text"
-                          value={edu}
-                          onChange={(e) => {
-                            const updated = [...educationList];
-                            updated[idx] = e.target.value;
-                            setAndSaveList('resume_education_list', updated, setEducationList);
-                          }}
-                          className="bg-transparent text-xs text-white border-none focus:outline-none flex-1 font-bold"
-                        />
-                        <button
-                          type="button"
-                          onClick={() => {
-                            const updated = educationList.filter((_, i: number) => i !== idx);
-                            setAndSaveList('resume_education_list', updated, setEducationList);
-                          }}
-                          className="text-neutral-500 hover:text-rose-500 px-1 text-xs cursor-pointer"
-                        >
-                          ✕
-                        </button>
-                      </div>
-                    ))}
-                  </div>
-
-                  <div className="flex gap-1.5 pt-1 font-sans">
-                    <input
-                      id="new-edu-input-field"
-                      type="text"
-                      placeholder="例如: 北京大学数字艺术系 / Peking University"
-                      className="flex-1 bg-neutral-900 border border-neutral-800 rounded px-2.5 py-1 text-xs text-white focus:outline-none font-sans"
-                      onKeyDown={(e) => {
-                        if (e.key === 'Enter') {
-                          const val = (e.currentTarget as HTMLInputElement).value.trim();
-                          if (val) {
-                            const updated = [...educationList, val];
-                            setAndSaveList('resume_education_list', updated, setEducationList);
-                            (e.currentTarget as HTMLInputElement).value = '';
-                          }
-                        }
-                      }}
-                    />
-                    <button
-                      type="button"
-                      onClick={() => {
-                        const inputEl = document.getElementById('new-edu-input-field') as HTMLInputElement;
-                        const val = inputEl?.value.trim();
-                        if (val) {
-                          const updated = [...educationList, val];
-                          setAndSaveList('resume_education_list', updated, setEducationList);
-                          inputEl.value = '';
-                        }
-                      }}
-                      className="px-3 py-1 rounded bg-white text-black font-extrabold text-[10px] cursor-pointer"
-                    >
-                      新增
-                    </button>
-                  </div>
-                </div>
-              )}
-
-              {/* TAB 3: TYPOGRAPHY / LAYOUT (学识间距) */}
-              {resumeTunerTab === 'type' && (
-                <div className="space-y-4 font-sans animate-fade-in">
-                  {/* Spacing / Vertical Gaps */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400">履历经历条目间距 (Vertical Gap)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: timelineColor }}>{timelineSpacing}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_timeline_spacing', Math.max(12, timelineSpacing - 2), setTimelineSpacing)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="12" max="80" step="2" 
-                        value={timelineSpacing} 
-                        onChange={(e) => setAndSave('resume_timeline_spacing', Number(e.target.value), setTimelineSpacing)}
-                        className="flex-1 h-1"
-                        style={{ accentColor: timelineColor }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_timeline_spacing', Math.min(80, timelineSpacing + 2), setTimelineSpacing)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Role Title Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">职务名称字号 (Role Title)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: timelineColor }}>{roleFontSize}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_role_fs', Math.max(12, roleFontSize - 1), setRoleFontSize)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="12" max="32" step="1" 
-                        value={roleFontSize} 
-                        onChange={(e) => setAndSave('resume_role_fs', Number(e.target.value), setRoleFontSize)}
-                        className="flex-1 h-1"
-                        style={{ accentColor: timelineColor }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_role_fs', Math.min(32, roleFontSize + 1), setRoleFontSize)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Description Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">描述性职责文字字号 (Description)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: timelineColor }}>{descFontSize}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_desc_fs', Math.max(9, descFontSize - 1), setDescFontSize)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="9" max="22" step="0.5" 
-                        value={descFontSize} 
-                        onChange={(e) => setAndSave('resume_desc_fs', Number(e.target.value), setDescFontSize)}
-                        className="flex-1 h-1"
-                        style={{ accentColor: timelineColor }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_desc_fs', Math.min(22, descFontSize + 1), setDescFontSize)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Period Font Size */}
-                  <div className="flex flex-col gap-1.5">
-                    <div className="flex justify-between items-center text-[10px]">
-                      <span className="text-neutral-400 font-sans">履历时间周期字号 (Period)</span>
-                      <span className="font-mono text-[#E1FF39] font-black" style={{ color: timelineColor }}>{periodFontSize}px</span>
-                    </div>
-                    <div className="flex items-center gap-2">
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_period_fs', Math.max(8, periodFontSize - 1), setPeriodFontSize)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >-</button>
-                      <input 
-                        type="range" min="8" max="18" step="0.5" 
-                        value={periodFontSize} 
-                        onChange={(e) => setAndSave('resume_period_fs', Number(e.target.value), setPeriodFontSize)}
-                        className="flex-1 h-1"
-                        style={{ accentColor: timelineColor }}
-                      />
-                      <button 
-                        type="button" 
-                        onClick={() => setAndSave('resume_period_fs', Math.min(18, periodFontSize + 1), setPeriodFontSize)}
-                        className="w-5 h-5 rounded bg-neutral-900 border border-neutral-800 text-neutral-400 hover:text-white flex items-center justify-center text-xs cursor-pointer"
-                      >+</button>
-                    </div>
-                  </div>
-
-                  {/* Timeline Neon Accent Color Choice */}
-                  <div className="flex flex-col gap-1 text-left font-sans">
-                    <span className="text-[9.5px] text-neutral-400 font-sans">时间轴微型圆点/高亮配色 Choose Accent</span>
-                    <div className="grid grid-cols-6 gap-1.5 pt-1">
-                      {[
-                        { hex: '#E1FF39', name: '荧光绿' },
-                        { hex: '#00FFE0', name: '冰川蓝' },
-                        { hex: '#FF1493', name: '霓虹粉' },
-                        { hex: '#9b5de5', name: '经典紫' },
-                        { hex: '#FFAA00', name: '琥珀橙' },
-                        { hex: '#10B981', name: '湖水绿' }
-                      ].map((item) => {
-                        const isSelected = timelineColor === item.hex;
-                        return (
-                          <button
-                            key={item.hex}
-                            type="button"
-                            onClick={() => setAndSave('resume_timeline_color', item.hex, setTimelineColor)}
-                            className="h-5 rounded border transition-all cursor-pointer relative"
-                            style={{ 
-                              backgroundColor: item.hex,
-                              borderColor: isSelected ? '#fff' : 'rgba(255,255,255,0.15)',
-                              boxShadow: isSelected ? `0 0 6px ${item.hex}` : 'none'
-                            }}
-                            title={item.name}
-                          />
-                        );
-                      })}
-                    </div>
-                  </div>
-                </div>
-              )}
-            </div>
-            )}
           </div>
  
           {/* COLUMN 2 (lg:col-span-7): Spacious and beautifully aligned career chronicle */}
