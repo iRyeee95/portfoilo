@@ -17,7 +17,7 @@ export default function Header({
     const updateTime = () => {
       const now = new Date();
       const options: Intl.DateTimeFormatOptions = {
-        timeZone: 'Europe/Paris',
+        timeZone: 'Asia/Shanghai',
         hour: '2-digit',
         minute: '2-digit',
         second: '2-digit',
@@ -41,19 +41,19 @@ export default function Header({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="text-neutral-800 font-medium">HAN LI STUDIO</span>
+            <span className="text-neutral-800 font-medium">XUZIYI STUDIO</span>
             <span className="text-neutral-300">|</span>
-            <span className="hidden sm:inline">STOCKHOLM — PARIS ART DIRECTION</span>
+            <span className="hidden sm:inline">SENIOR VISUAL & MOTION DESIGN</span>
           </div>
 
           <div className="flex items-center gap-4 text-neutral-500">
             <div className="flex items-center gap-1.5 bg-neutral-50 px-2 py-1 rounded border border-neutral-100">
               <Clock className="h-3 w-3 text-neutral-400" />
-              <span>STHLM TIME:</span>
+              <span>CN TIME:</span>
               <span className="text-neutral-900 font-semibold tabular-nums select-none">{timeStr || '12:00:00'}</span>
             </div>
             <div className="hidden md:block">
-              <span>LAT: 59.3293° N</span>
+              <span>LAT: 31.2304° N</span>
             </div>
           </div>
         </div>
@@ -64,7 +64,7 @@ export default function Header({
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div id="author-branding">
             <h1 className="font-sans text-3xl font-extrabold tracking-tighter text-neutral-900 sm:text-4xl">
-              HAN LI / 李瀚
+              XUZIYI / 许子熠
             </h1>
             <p className="mt-1.5 text-sm font-mono text-neutral-500 max-w-md">
               Constructing structural grid logic, typographic systems, and tactile physical presence inside virtual viewport.

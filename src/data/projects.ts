@@ -180,41 +180,41 @@ export const projects: Project[] = [
 ];
 
 export const designerProfile: DesignerProfile = {
-  name: 'HAN LI / 李 瀚',
-  role: 'Art Director & Visual System Craftsman',
-  aboutText: 'I am a Stockholm-born, Paris-based visual designer and system architect. My craft sits at the intersection of rigid structural grid logic, bold editorial poster design, and high-fidelity interaction design. I believe a brand identity should represent an unyielding stance, using strict layout hierarchies to form physical presence inside virtual screens.',
-  philosophy: 'Typography is the architecture of language. A clean grid is not a prison; it is a trampoline for creative focus. I reject ornamental clutter and instead chase high-contrast, physical texture, and rigorous layout systems.',
+  name: 'XU ZIYI / 许 子熠',
+  role: 'Visual Operations Director & Content Ecosystem Artisan',
+  aboutText: 'I am a visual designer and platform system architect focusing on high-impact visual operations and content ecosystem design. My expertise spans large-scale wallpaper and aesthetic platform blueprinting, AIGC visual creation, high-fidelity 3D modeling/rendering, and cross-terminal dynamic layout adaptation. I craft cohesive aesthetic universes that elevate community engagement and commercial monetization across digital landscapes.',
+  philosophy: 'Visuals are not merely decorative facades; they comprise the structural bones that support a thriving digital ecosystem. Rigid layout proportion, responsive adaptivity, and high-fidelity texturizing form the ultimate user experience.',
   clients: [
-    'Zürcher Kunsthalle',
-    'Nordic Archipelago Art Museum',
-    'Aether Paris',
-    'Helvetica Centennial Foundation',
-    'Stockholm Modern',
-    'Klang Studio Tokyo'
+    'Yuanqi Wallpaper / 元气壁纸',
+    'Yuanqi Desktop / 元气桌面',
+    'Mixue Art Lab / 蜜雪冰城艺术实验室',
+    'TapNow AI Portal',
+    'Jimeng AI / 即梦 AI',
+    'Aetherspace Curation'
   ],
   awards: [
-    { year: '2025', title: 'Grand Prix Selection in Typography', event: 'TDC Tokyo Type Directors Club' },
-    { year: '2024', title: 'Gold Medal in Brand Identity Design', event: 'Red Dot Communication Awards' },
-    { year: '2024', title: 'Special Recognition in Editorial Layout', event: 'AGI Alliance Graphique Internationale' },
-    { year: '2023', title: 'Bronze Lion in Digital Craft', event: 'Cannes Lions International Festival' }
+    { year: '2025', title: 'Winner in Digital Content Curation', event: 'Yuanqi Creator Gala' },
+    { year: '2024', title: 'Top Featured Theme Designer Selection', event: 'Mobile Interface Aesthetics' },
+    { year: '2024', title: 'Gold Award in Commercial AIGC Art', event: 'Mixue Conceptual Media Festival' },
+    { year: '2023', title: 'Special Recognition in System Taxonomy', event: 'Symmetric Space Design Awards' }
   ],
   experience: [
-    { period: '2023 - Present', role: 'Independent Art Director & Visual Craftsman', company: 'Paris / Stockholm' },
-    { period: '2021 - 2023', role: 'Senior Identity & Interaction Designer', company: 'Studio Zürich-Mitte' },
-    { period: '2019 - 2021', role: 'Typographer & Layout Designer', company: 'Design Bureau Berlin' }
+    { period: '2023 - Present', role: 'Visual Operations Director & Lead Creator', company: 'Yuanqi Desktop / Shanghai' },
+    { period: '2021 - 2023', role: 'Senior Key Visual & Brand Designer', company: 'Commercial Creative Lab' },
+    { period: '2019 - 2021', role: 'Interactive Illustrator & UI/UX Designer', company: 'Digital Media Bureau' }
   ],
   skills: [
     {
       category: 'Systemic Strategy',
-      list: ['Brand Identity Systems', 'Grid & Proportion Architecture', 'Editorial Direction', 'Design System Architecture', 'Typographical Curation']
+      list: ['Visual Operations Strategy', 'Content Ecosystem Taxonomy', 'Digital Media Planning', 'Cross-Terminal Design Systems', 'UGC Platform Curation']
     },
     {
       category: 'Artistic Mediums',
-      list: ['Large-Format Exhibition Posters', 'Interactive UX Choreography', '3D Material Styling & Lighting', 'Octane Caustic Rendering', 'Traditional Bookbinding Layout']
+      list: ['Key Visual Campaign Design', '3D Clay & Material Styling', 'Dynamic UI/UX Choreography', 'AIGC Model Training & Prompting', 'High-Fidelity Texturing & Lighting']
     },
     {
       category: 'Tools of Trade',
-      list: ['Figma Expert', 'Adobe InDesign, Illustrator & Photoshop', 'Cinema 4D / Octane', 'Webflow & Custom React Prototyping', 'Generative Vector Coding']
+      list: ['Figma Expert', 'Adobe Creative Suite', 'Cinema 4D & Octane Renderer', 'Generative AI Tools (Jimeng, Midjourney)', 'Mobile Layout Adapters']
     }
   ]
 };

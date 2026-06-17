@@ -107,11 +107,11 @@ export default function ContactSection() {
           <div className="space-y-3 font-mono text-xs text-neutral-600 border-t border-neutral-200 pt-6">
             <div>
               <span className="text-neutral-400 block uppercase">COMMUNICATION RADIAL:</span>
-              <span className="text-neutral-900 font-semibold hover:underline cursor-pointer">collaborate@han-li.design</span>
+              <span className="text-neutral-900 font-semibold hover:underline cursor-pointer">xuziyi905@outlook.com</span>
             </div>
             <div>
               <span className="text-neutral-400 block uppercase">PHYSICAL OFFICE:</span>
-              <span className="text-neutral-900 font-semibold">Rue Saint-Roch, 75001 Paris, FR</span>
+              <span className="text-neutral-900 font-semibold">Beijing / Guangzhou / Shanghai, CN</span>
             </div>
           </div>
 

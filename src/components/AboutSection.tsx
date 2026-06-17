@@ -19,7 +19,7 @@ export default function AboutSection() {
             />
             {/* Stamp stamp overlay */}
             <div className="absolute bottom-2 left-2 bg-neutral-900 border border-neutral-800 text-[8px] font-mono text-white px-2 py-1 rounded">
-              HAN_LI_ART_DIR_2026
+              XU_ZIYI_VISUAL_DIR_2026
             </div>
           </div>
 
