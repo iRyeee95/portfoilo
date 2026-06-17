@@ -373,64 +373,57 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
   });
 
   React.useEffect(() => {
-    // Migration: ensure user's browser localStorage has the exact Image 2 data
-    const savedName = localStorage.getItem('badge_name');
-    if (!savedName || savedName === '李瀚' || savedName === '韩李' || savedName.includes('许萍子')) {
+    // Watertight Migration: ensure user's browser localStorage has the exact XUZIYI data and no stale Han Li leftovers
+    const nameVal = localStorage.getItem('badge_name');
+    const expVal = localStorage.getItem('resume_experience_list');
+    const photoVal = localStorage.getItem('badge_photo');
+    const eduVal = localStorage.getItem('resume_education_list');
+
+    const needsReset = !nameVal || 
+                       nameVal.includes('李瀚') || 
+                       nameVal.includes('韩李') || 
+                       nameVal.includes('HAN LI') ||
+                       (expVal && (expVal.includes('Stockholm') || expVal.includes('Paris') || expVal.includes('Zürich') || !expVal.includes('猎豹移动'))) ||
+                       (eduVal && (eduVal.includes('Zürich') || eduVal.includes('苏黎世') || !eduVal.includes('重庆邮电'))) ||
+                       (photoVal && (photoVal.includes('unsplash') || photoVal.startsWith('http')));
+
+    if (needsReset) {
+      console.log('Migrating stale legacy local storage variables to XUZIYI / RYE XU defaults...');
+
       const targetName = '许\n子熠';
       localStorage.setItem('badge_name', targetName);
       setName(targetName);
-    }
 
-    const savedEngName = localStorage.getItem('badge_eng_name');
-    if (!savedEngName || savedEngName === 'HAN LI' || savedEngName === 'ZIYI XU') {
       const targetEngName = 'RYE XU';
       localStorage.setItem('badge_eng_name', targetEngName);
       setEnglishName(targetEngName);
-    }
 
-    const savedYears = localStorage.getItem('badge_years_exp');
-    if (!savedYears || savedYears === '7年以上经验' || savedYears === '7 YEARS EXP') {
       const targetYears = '7+ YEARS EXP';
       localStorage.setItem('badge_years_exp', targetYears);
       setYearsExp(targetYears);
-    }
 
-    const savedBirthday = localStorage.getItem('badge_birthday');
-    if (!savedBirthday || savedBirthday === '1995.10.16' || savedBirthday.includes('1995年')) {
       const targetBirthday = '1996.09.05';
       localStorage.setItem('badge_birthday', targetBirthday);
       setBirthday(targetBirthday);
-    }
 
-    const savedTel = localStorage.getItem('badge_tel');
-    if (!savedTel || savedTel === '+46 (8) 545-09-500') {
       const targetTel = '153-7735-6930';
       localStorage.setItem('badge_tel', targetTel);
       setTel(targetTel);
-    }
 
-    const savedEmail = localStorage.getItem('badge_email');
-    if (!savedEmail || savedEmail === 'collaborate@han-li.design') {
       const targetEmail = 'xuziyi905@outlook.com';
       localStorage.setItem('badge_email', targetEmail);
       setEmail(targetEmail);
-    }
 
-    const savedEdu = localStorage.getItem('resume_education_list');
-    if (!savedEdu || savedEdu.includes('Zürich') || savedEdu.includes('苏黎世') || savedEdu.includes('Digital') || savedEdu.includes('数字媒体艺术')) {
       const targetEdu = ['重庆邮电大学移通学院', '数字媒体艺术 本科'];
       localStorage.setItem('resume_education_list', JSON.stringify(targetEdu));
       setEducationList(targetEdu);
-    }
 
-    const savedExp = localStorage.getItem('resume_experience_list');
-    if (!savedExp || savedExp.includes('Zürich') || savedExp.includes('Stockholm') || savedExp.includes('Paris') || savedExp.includes('Independent Art Director') || savedExp.includes('Visual Operations Director') || savedExp.includes('Shanghai') || savedExp.includes('Collaborated with standard templates')) {
       const targetExp = [
         {
           period: '2020.9 - 2025.6',
           role: '资深视觉设计师',
           company: '猎豹移动-豹趣科技',
-          description: '千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与 complex 粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
+          description: '千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。'
         },
         {
           period: '2019 - 2020',
@@ -445,16 +438,53 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
           description: '负责运营推广等平面内容输出和视频动画产出。'
         }
       ];
-      targetExp[0].description = '千万级生态基建与赋能：主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n2. 业务转化与核心渠道跃升：深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n3. 动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动画产出，全面打通视觉与动效的全链路。';
       localStorage.setItem('resume_experience_list', JSON.stringify(targetExp));
       setExperienceList(targetExp);
-    }
 
-    const savedPhoto = localStorage.getItem('badge_photo');
-    if (!savedPhoto || savedPhoto.includes('unsplash.com') || savedPhoto.startsWith('http://') || savedPhoto.startsWith('https://')) {
       const targetPhoto = '/pic.jpg';
       localStorage.setItem('badge_photo', targetPhoto);
       setBadgePhoto(targetPhoto);
+
+      // Force apply standard defaults for sizes to look pristine out-of-the-box
+      localStorage.setItem('badge_photo_width_ratio', '3');
+      localStorage.setItem('badge_photo_radius', '12');
+      localStorage.setItem('badge_photo_scale', '100');
+      localStorage.setItem('badge_photo_x_offset', '0');
+      localStorage.setItem('badge_photo_y_offset', '0');
+      localStorage.setItem('badge_name_size', '38');
+      localStorage.setItem('badge_name_lh', '42');
+      localStorage.setItem('badge_eng_size', '19');
+      localStorage.setItem('badge_label_size', '10');
+      localStorage.setItem('badge_value_size', '15');
+      localStorage.setItem('badge_telemail_size', '14');
+      localStorage.setItem('badge_card_height', '730');
+      localStorage.setItem('badge_card_width', '395');
+      localStorage.setItem('badge_card_padding', '28');
+      localStorage.setItem('badge_card_bg', '#121214');
+      localStorage.setItem('badge_card_back_bg', '#E1FF39');
+      localStorage.setItem('badge_card_rotate', '-16');
+      localStorage.setItem('badge_card_tx', '-55');
+      localStorage.setItem('badge_card_ty', '16');
+
+      setPhotoWidthRatio(3);
+      setPhotoRadius(12);
+      setPhotoScale(100);
+      setPhotoXOffset(0);
+      setPhotoYOffset(0);
+      setNameSize(38);
+      setNameLineHeight(42);
+      setEngNameSize(19);
+      setLabelSize(10);
+      setValueSize(15);
+      setTelEmailSize(14);
+      setCardMinHeight(730);
+      setCardWidth(395);
+      setCardPadding(28);
+      setBadgeBg('#121214');
+      setBackBadgeBg('#E1FF39');
+      setCardRotateOffset(-16);
+      setCardTranslateX(-55);
+      setCardTranslateY(16);
     }
   }, []);
 
