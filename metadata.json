@@ -1,0 +1,6 @@
+{
+  "name": "Visual Designer Portfolio",
+  "description": "An elegant, premium, immersive personal portfolio website for visual designers, showcasing brand design, typography posters, and creative art direction.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
