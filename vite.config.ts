@@ -8,7 +8,36 @@ export default defineConfig(() => {
   return {
     plugins: [
       react(), 
-      tailwindcss()
+      tailwindcss(),
+      {
+        name: 'save-config',
+        configureServer(server) {
+          server.middlewares.use((req, res, next) => {
+            if (req.url === '/api/save-config' && req.method === 'POST') {
+              let body = '';
+              req.on('data', (chunk) => {
+                body += chunk;
+              });
+              req.on('end', () => {
+                try {
+                  const data = JSON.parse(body);
+                  const configPath = path.resolve(__dirname, 'src/data/config.json');
+                  fs.writeFileSync(configPath, JSON.stringify(data, null, 2), 'utf-8');
+                  res.statusCode = 200;
+                  res.setHeader('Content-Type', 'application/json');
+                  res.end(JSON.stringify({ success: true, message: 'Configuration saved!' }));
+                  console.log('✅ Configuration successfully saved to src/data/config.json');
+                } catch (e: any) {
+                  res.statusCode = 500;
+                  res.end(JSON.stringify({ error: e.message }));
+                }
+              });
+            } else {
+              next();
+            }
+          });
+        }
+      }
     ],
     resolve: {
       alias: {
