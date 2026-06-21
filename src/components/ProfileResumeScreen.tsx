@@ -99,6 +99,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
   const [email, setEmail] = useState(() => {
     return savedConfig.badge_email || localStorage.getItem('badge_email') || 'xuziyi905@outlook.com';
   });
+
   const [introText, setIntroText] = useState(() => {
     return savedConfig.resume_intro_text || localStorage.getItem('badge_intro_text') || 'Archived timeline of professional visual strategy, creative operations, and platform content ecosystems across Yuanqi Desktop and commercial illustrations.';
   });
@@ -210,29 +211,71 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
   const [experienceList, setExperienceList] = useState<any[]>(() => {
     try {
       const saved = savedConfig.resume_experience_list || localStorage.getItem('resume_experience_list');
+      let rawList = null;
       if (saved) {
-        return typeof saved === 'string' ? JSON.parse(saved) : saved;
+        rawList = typeof saved === 'string' ? JSON.parse(saved) : saved;
+      } else {
+        rawList = [
+          {
+            period: '2020.9 - 2025.6',
+            role: '资深视觉设计师',
+            company: '猎豹移动-豹趣科技',
+            description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
+          },
+          {
+            period: '2019 - 2020',
+            role: '视觉设计师',
+            company: '广州卓牛科技',
+            description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣发和迭代。'
+          },
+          {
+            period: '2018 - 2019',
+            role: '视觉设计师',
+            company: '广州图灵科技',
+            description: '负责运营推广等平面内容输出和视频动画产出。'
+          }
+        ];
       }
+
+      // Normalise role / company separation dynamically
+      return rawList.map((item: any) => {
+        let r = (item.role || '').trim();
+        let c = (item.company || '').trim();
+        if (!c) {
+          if (r.includes('@')) {
+            const parts = r.split('@');
+            r = parts[0].trim();
+            c = parts[1].trim();
+          } else {
+            const match = r.match(/^([\s\S]+?)(?:\s{2,}|\t+| {2,}|[\u00A0]{2,}|@)([\s\S]+)$/);
+            if (match) {
+              r = match[1].trim();
+              c = match[2].trim();
+            }
+          }
+        }
+        return { ...item, role: r, company: c };
+      });
     } catch (e) {
       console.error(e);
     }
     return [
       {
         period: '2020.9 - 2025.6',
-        role: '资深视觉设计师          猎豹移动-豹趣科技',
-        company: '',
-        description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
+        role: '资深视觉设计师',
+        company: '猎豹移动-豹趣科技',
+        description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
       },
       {
         period: '2019 - 2020',
-        role: '视觉设计师          广州卓牛科技',
-        company: '',
-        description: '负责相机、清理等手机软件的视觉内容设计 and运营活动宣发 and 迭代。'
+        role: '视觉设计师',
+        company: '广州卓牛科技',
+        description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣发和迭代。'
       },
       {
         period: '2018 - 2019',
-        role: '视觉设计师          广州图灵科技          ',
-        company: '',
+        role: '视觉设计师',
+        company: '广州图灵科技',
         description: '负责运营推广等平面内容输出和视频动画产出。'
       }
     ];
