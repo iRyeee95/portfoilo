@@ -20,6 +20,11 @@ import InteractiveDotGrid from './InteractiveDotGrid';
 import savedConfigData from '../data/config.json';
 const savedConfig = savedConfigData as any;
 
+// Flag to completely bypass localStorage in production mode for perfect visual consistency.
+// This prevents previous browser data from overriding the pristine, beautiful JSON default settings.
+const showTunerPanels = false;
+const showBadgeTuner = false;
+
 interface ProfileResumeScreenProps {
   onScrollToWorks: () => void;
 }
@@ -34,22 +39,22 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
   // Badge inner layout format: 'side' (horizontal) or 'stack' (vertical)
   const [innerLayout, setInnerLayout] = useState<'side' | 'stack'>(() => {
-    return (localStorage.getItem('badge_inner_layout') as 'side' | 'stack') || 'side';
+    return (showTunerPanels ? (localStorage.getItem('badge_inner_layout') as 'side' | 'stack') : null) || 'side';
   });
 
   // Relative alignment within the photo-text flex flow (e.g. 'left' / 'right' or 'top' / 'bottom')
   const [photoPosition, setPhotoPosition] = useState<'left' | 'right' | 'top' | 'bottom'>(() => {
-    return (localStorage.getItem('photo_pos') as any) || 'left';
+    return (showTunerPanels ? (localStorage.getItem('photo_pos') as any) : null) || 'left';
   });
 
   // Text content alignment inside the elements
   const [textAlign, setTextAlign] = useState<'left' | 'center' | 'right'>(() => {
-    return (localStorage.getItem('badge_text_align') as 'left' | 'center' | 'right') || 'left';
+    return (showTunerPanels ? (localStorage.getItem('badge_text_align') as 'left' | 'center' | 'right') : null) || 'left';
   });
 
   // Badge Photo url/base64 state
   const [badgePhoto, setBadgePhoto] = useState(() => {
-    const saved = savedConfig.badge_photo || localStorage.getItem('badge_photo');
+    const saved = savedConfig.badge_photo || (showTunerPanels ? localStorage.getItem('badge_photo') : null);
     if (!saved || saved.includes('unsplash.com') || saved.startsWith('http://') || saved.startsWith('https://')) {
       const defaultPhoto = '/pic.jpg';
       return defaultPhoto;
@@ -82,120 +87,120 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
   // Client-side text customisations (linked to contentEditable)
   const [name, setName] = useState(() => {
-    return savedConfig.badge_name || localStorage.getItem('badge_name') || '许\n子熠';
+    return savedConfig.badge_name || (showTunerPanels && localStorage.getItem('badge_name')) || '许\n子熠';
   });
   const [englishName, setEnglishName] = useState(() => {
-    return savedConfig.badge_eng_name || localStorage.getItem('badge_english_name') || 'RYE XU';
+    return savedConfig.badge_eng_name || (showTunerPanels && localStorage.getItem('badge_english_name')) || 'RYE XU';
   });
   const [yearsExp, setYearsExp] = useState(() => {
-    return savedConfig.badge_years_exp || localStorage.getItem('badge_years_exp') || '7+ YEARS EXP';
+    return savedConfig.badge_years_exp || (showTunerPanels && localStorage.getItem('badge_years_exp')) || '7+ YEARS EXP';
   });
   const [birthday, setBirthday] = useState(() => {
-    return savedConfig.badge_birthday || localStorage.getItem('badge_birthday') || '1996.09.05';
+    return savedConfig.badge_birthday || (showTunerPanels && localStorage.getItem('badge_birthday')) || '1996.09.05';
   });
   const [tel, setTel] = useState(() => {
-    return savedConfig.badge_tel || localStorage.getItem('badge_tel') || '153-7735-6930';
+    return savedConfig.badge_tel || (showTunerPanels && localStorage.getItem('badge_tel')) || '153-7735-6930';
   });
   const [email, setEmail] = useState(() => {
-    return savedConfig.badge_email || localStorage.getItem('badge_email') || 'xuziyi905@outlook.com';
+    return savedConfig.badge_email || (showTunerPanels && localStorage.getItem('badge_email')) || 'xuziyi905@outlook.com';
   });
 
   const [introText, setIntroText] = useState(() => {
-    return savedConfig.resume_intro_text || localStorage.getItem('badge_intro_text') || 'Archived timeline of professional visual strategy, creative operations, and platform content ecosystems across Yuanqi Desktop and commercial illustrations.';
+    return savedConfig.resume_intro_text || (showTunerPanels && localStorage.getItem('badge_intro_text')) || 'Archived timeline of professional visual strategy, creative operations, and platform content ecosystems across Yuanqi Desktop and commercial illustrations.';
   });
 
   // --- Dynamic Layout Customizations (Pristine Constant Design Specs) ---
   const [photoWidthRatio, setPhotoWidthRatio] = useState<number>(() => {
-    return Number(savedConfig.badge_photo_width_ratio || savedConfig.badge_photoWidthRatio || localStorage.getItem('badge_photo_width_ratio') || '3.05');
+    return Number(savedConfig.badge_photo_width_ratio || savedConfig.badge_photoWidthRatio || (showTunerPanels && localStorage.getItem('badge_photo_width_ratio')) || '3.05');
   });
   const [photoRadius, setPhotoRadius] = useState<number>(() => {
-    return Number(savedConfig.badge_photo_radius || savedConfig.badge_photoRadius || localStorage.getItem('badge_photo_radius') || '9');
+    return Number(savedConfig.badge_photo_radius || savedConfig.badge_photoRadius || (showTunerPanels && localStorage.getItem('badge_photo_radius')) || '9');
   });
   const [photoScale, setPhotoScale] = useState<number>(() => {
-    return Number(savedConfig.badge_photo_scale || savedConfig.badge_photoScale || localStorage.getItem('badge_photo_scale') || '128');
+    return Number(savedConfig.badge_photo_scale || savedConfig.badge_photoScale || (showTunerPanels && localStorage.getItem('badge_photo_scale')) || '128');
   });
   const [photoXOffset, setPhotoXOffset] = useState<number>(() => {
-    return Number(savedConfig.badge_photo_x_offset || savedConfig.badge_photoXOffset || localStorage.getItem('badge_photo_x_offset') || '0');
+    return Number(savedConfig.badge_photo_x_offset || savedConfig.badge_photoXOffset || (showTunerPanels && localStorage.getItem('badge_photo_x_offset')) || '0');
   });
   const [photoYOffset, setPhotoYOffset] = useState<number>(() => {
-    return Number(savedConfig.badge_photo_y_offset || savedConfig.badge_photoYOffset || localStorage.getItem('badge_photo_y_offset') || '0');
+    return Number(savedConfig.badge_photo_y_offset || savedConfig.badge_photoYOffset || (showTunerPanels && localStorage.getItem('badge_photo_y_offset')) || '0');
   });
 
   const [nameSize, setNameSize] = useState<number>(() => {
-    return Number(savedConfig.badge_name_size || savedConfig.badge_nameSize || localStorage.getItem('badge_name_size') || '43.6');
+    return Number(savedConfig.badge_name_size || savedConfig.badge_nameSize || (showTunerPanels && localStorage.getItem('badge_name_size')) || '43.6');
   });
   const [nameLineHeight, setNameLineHeight] = useState<number>(() => {
-    return Number(savedConfig.badge_name_lh || savedConfig.badge_nameLineHeight || localStorage.getItem('badge_name_lh') || '47.6');
+    return Number(savedConfig.badge_name_lh || savedConfig.badge_nameLineHeight || (showTunerPanels && localStorage.getItem('badge_name_lh')) || '47.6');
   });
   const [engNameSize, setEngNameSize] = useState<number>(() => {
-    return Number(savedConfig.badge_eng_size || savedConfig.badge_engNameSize || localStorage.getItem('badge_eng_size') || '23.7');
+    return Number(savedConfig.badge_eng_size || savedConfig.badge_engNameSize || (showTunerPanels && localStorage.getItem('badge_eng_size')) || '23.7');
   });
   const [labelSize, setLabelSize] = useState<number>(() => {
-    return Number(savedConfig.badge_label_size || savedConfig.badge_labelSize || localStorage.getItem('badge_label_size') || '12.4');
+    return Number(savedConfig.badge_label_size || savedConfig.badge_labelSize || (showTunerPanels && localStorage.getItem('badge_label_size')) || '12.4');
   });
   const [valueSize, setValueSize] = useState<number>(() => {
-    return Number(savedConfig.badge_value_size || savedConfig.badge_valueSize || localStorage.getItem('badge_value_size') || '19.6');
+    return Number(savedConfig.badge_value_size || savedConfig.badge_valueSize || (showTunerPanels && localStorage.getItem('badge_value_size')) || '19.6');
   });
   const [telEmailSize, setTelEmailSize] = useState<number>(() => {
-    return Number(savedConfig.badge_telemail_size || savedConfig.badge_telEmailSize || localStorage.getItem('badge_telemail_size') || '20');
+    return Number(savedConfig.badge_telemail_size || savedConfig.badge_telEmailSize || (showTunerPanels && localStorage.getItem('badge_telemail_size')) || '20');
   });
 
   const [cardMinHeight, setCardMinHeight] = useState<number>(() => {
-    return Number(savedConfig.badge_card_height || savedConfig.badge_cardMinHeight || localStorage.getItem('badge_card_height') || '687.7');
+    return Number(savedConfig.badge_card_height || savedConfig.badge_cardMinHeight || (showTunerPanels && localStorage.getItem('badge_card_height')) || '687.7');
   });
   const [cardWidth, setCardWidth] = useState<number>(() => {
-    return Number(savedConfig.badge_card_width || savedConfig.badge_cardWidth || localStorage.getItem('badge_card_width') || '439.4');
+    return Number(savedConfig.badge_card_width || savedConfig.badge_cardWidth || (showTunerPanels && localStorage.getItem('badge_card_width')) || '439.4');
   });
   const [cardPadding, setCardPadding] = useState<number>(() => {
-    return Number(savedConfig.badge_card_padding || savedConfig.badge_cardPadding || localStorage.getItem('badge_card_padding') || '22.1');
+    return Number(savedConfig.badge_card_padding || savedConfig.badge_cardPadding || (showTunerPanels && localStorage.getItem('badge_card_padding')) || '22.1');
   });
   const [badgeBg, setBadgeBg] = useState<string>(() => {
-    return savedConfig.badge_badgeBg || savedConfig.badge_card_bg || localStorage.getItem('badge_card_bg') || '#121214';
+    return savedConfig.badge_badgeBg || savedConfig.badge_card_bg || (showTunerPanels && localStorage.getItem('badge_card_bg')) || '#121214';
   });
   const [backBadgeBg, setBackBadgeBg] = useState<string>(() => {
-    return savedConfig.badge_backBadgeBg || savedConfig.badge_card_back_bg || localStorage.getItem('badge_card_back_bg') || '#E1FF39';
+    return savedConfig.badge_backBadgeBg || savedConfig.badge_card_back_bg || (showTunerPanels && localStorage.getItem('badge_card_back_bg')) || '#E1FF39';
   });
 
   const [cardRotateOffset, setCardRotateOffset] = useState<number>(() => {
-    return Number(savedConfig.badge_card_rotate || savedConfig.badge_cardRotateOffset || localStorage.getItem('badge_card_rotate') || '-19.2');
+    return Number(savedConfig.badge_card_rotate || savedConfig.badge_cardRotateOffset || (showTunerPanels && localStorage.getItem('badge_card_rotate')) || '-19.2');
   });
   const [cardTranslateX, setCardTranslateX] = useState<number>(() => {
-    return Number(savedConfig.badge_card_tx || savedConfig.badge_cardTranslateX || localStorage.getItem('badge_card_tx') || '-87.8');
+    return Number(savedConfig.badge_card_tx || savedConfig.badge_cardTranslateX || (showTunerPanels && localStorage.getItem('badge_card_tx')) || '-87.8');
   });
   const [cardTranslateY, setCardTranslateY] = useState<number>(() => {
-    return Number(savedConfig.badge_card_ty || savedConfig.badge_cardTranslateY || localStorage.getItem('badge_card_ty') || '16');
+    return Number(savedConfig.badge_card_ty || savedConfig.badge_cardTranslateY || (showTunerPanels && localStorage.getItem('badge_card_ty')) || '16');
   });
   const [tiltSensitivity, setTiltSensitivity] = useState<number>(() => {
-    return Number(savedConfig.badge_tiltSensitivity || localStorage.getItem('badge_tilt_sens') || '15');
+    return Number(savedConfig.badge_tiltSensitivity || (showTunerPanels && localStorage.getItem('badge_tilt_sens')) || '15');
   });
 
   const [showFloatingIcons, setShowFloatingIcons] = useState<boolean>(() => {
-    return savedConfig.badge_showFloatingIcons === 'true' || savedConfig.badge_show_float !== 'false' || localStorage.getItem('badge_show_float') !== 'false';
+    return savedConfig.badge_showFloatingIcons === 'true' || savedConfig.badge_show_float !== 'false' || (showTunerPanels && localStorage.getItem('badge_show_float') !== 'false');
   });
   const [floatScale, setFloatScale] = useState<number>(() => {
-    return Number(savedConfig.badge_floatScale || localStorage.getItem('badge_float_scale') || '125');
+    return Number(savedConfig.badge_floatScale || (showTunerPanels && localStorage.getItem('badge_float_scale')) || '125');
   });
 
   // States for Resume Content/Typography Customization on the right
   const [timelineColor, setTimelineColor] = useState<string>(() => {
-    return savedConfig.resume_timeline_color || localStorage.getItem('resume_timeline_color') || '#E1FF39';
+    return savedConfig.resume_timeline_color || (showTunerPanels && localStorage.getItem('resume_timeline_color')) || '#E1FF39';
   });
   const [roleFontSize, setRoleFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_role_fs || localStorage.getItem('resume_role_fs') || '19');
+    return Number(savedConfig.resume_role_fs || (showTunerPanels && localStorage.getItem('resume_role_fs')) || '19');
   });
   const [descFontSize, setDescFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_desc_fs || localStorage.getItem('resume_desc_fs') || '14.5');
+    return Number(savedConfig.resume_desc_fs || (showTunerPanels && localStorage.getItem('resume_desc_fs')) || '14.5');
   });
   const [periodFontSize, setPeriodFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_period_fs || localStorage.getItem('resume_period_fs') || '16');
+    return Number(savedConfig.resume_period_fs || (showTunerPanels && localStorage.getItem('resume_period_fs')) || '16');
   });
   const [timelineSpacing, setTimelineSpacing] = useState<number>(() => {
-    return Number(savedConfig.resume_timeline_spacing || localStorage.getItem('resume_timeline_spacing') || '38');
+    return Number(savedConfig.resume_timeline_spacing || (showTunerPanels && localStorage.getItem('resume_timeline_spacing')) || '38');
   });
 
   const [educationList, setEducationList] = useState<string[]>(() => {
     try {
-      const saved = savedConfig.resume_education_list || localStorage.getItem('resume_education_list');
+      const saved = savedConfig.resume_education_list || (showTunerPanels && localStorage.getItem('resume_education_list'));
       if (saved) {
         return typeof saved === 'string' ? JSON.parse(saved) : saved;
       }
@@ -210,7 +215,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
   const [experienceList, setExperienceList] = useState<any[]>(() => {
     try {
-      const saved = savedConfig.resume_experience_list || localStorage.getItem('resume_experience_list');
+      const saved = savedConfig.resume_experience_list || (showTunerPanels && localStorage.getItem('resume_experience_list'));
       let rawList = null;
       if (saved) {
         rawList = typeof saved === 'string' ? JSON.parse(saved) : saved;
@@ -281,9 +286,6 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     ];
   });
 
-  // Keep Tuners off by default in raw/production code
-  const showTunerPanels = false;
-  const showBadgeTuner = false;
   const tunerTab = 'photo';
   const resumeTunerTab = 'content';
   const editingIndex = 0;
@@ -864,11 +866,12 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                           
                           {/* Inline editable name */}
                           <span 
-                            className="font-sans font-black text-white block select-none mb-1 cursor-text outline-none hover:bg-white/5 rounded px-1 transition-colors whitespace-pre-line"
+                            className={`font-sans font-black text-white block select-none mb-1 outline-none rounded px-1 transition-colors whitespace-pre-line ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                             style={{ fontSize: `${nameSize}px`, lineHeight: `${nameLineHeight}px` }}
-                            contentEditable
-                            suppressContentEditableWarning
+                            contentEditable={showTunerPanels}
+                            suppressContentEditableWarning={showTunerPanels ? true : undefined}
                             onBlur={(e) => {
+                              if (!showTunerPanels) return;
                               const val = e.currentTarget.innerText.trim();
                               if (val) {
                                 setName(val);
@@ -881,11 +884,12 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                           
                           {/* Inline editable EN name */}
                           <span 
-                            className="font-mono text-neutral-400 font-semibold block uppercase tracking-tight select-none cursor-text outline-none hover:bg-white/5 rounded px-1 transition-colors"
+                            className={`font-mono text-neutral-400 font-semibold block uppercase tracking-tight select-none outline-none rounded px-1 transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                             style={{ fontSize: `${engNameSize}px` }}
-                            contentEditable
-                            suppressContentEditableWarning
+                            contentEditable={showTunerPanels}
+                            suppressContentEditableWarning={showTunerPanels ? true : undefined}
                             onBlur={(e) => {
+                              if (!showTunerPanels) return;
                               const val = e.currentTarget.innerText.trim();
                               if (val) {
                                 setEnglishName(val);
@@ -911,11 +915,12 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                               YEARS EXP / 工作年限
                             </span>
                             <span 
-                              className="font-sans font-extrabold tracking-tight block px-1.5 py-0.5 select-none cursor-text outline-none hover:bg-white/5 rounded-md transition-colors"
+                              className={`font-sans font-extrabold tracking-tight block px-1.5 py-0.5 select-none outline-none rounded-md transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                               style={{ fontSize: `${valueSize}px`, color: backBadgeBg }}
-                              contentEditable
-                              suppressContentEditableWarning
+                              contentEditable={showTunerPanels}
+                              suppressContentEditableWarning={showTunerPanels ? true : undefined}
                               onBlur={(e) => {
+                                if (!showTunerPanels) return;
                                 const val = e.currentTarget.innerText.trim();
                                 if (val) {
                                   setYearsExp(val);
@@ -936,11 +941,12 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                               DATE OF BIRTH / 生日
                             </span>
                             <span 
-                              className="font-mono font-bold text-neutral-300 block select-none cursor-text outline-none hover:bg-white/5 rounded-md transition-colors"
+                              className={`font-mono font-bold text-neutral-300 block select-none outline-none rounded-md transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                               style={{ fontSize: `${valueSize}px` }}
-                              contentEditable
-                              suppressContentEditableWarning
+                              contentEditable={showTunerPanels}
+                              suppressContentEditableWarning={showTunerPanels ? true : undefined}
                               onBlur={(e) => {
+                                if (!showTunerPanels) return;
                                 const val = e.currentTarget.innerText.trim();
                                 if (val) {
                                   setBirthday(val);
@@ -1095,7 +1101,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                       className="font-sans font-black text-neutral-900 leading-snug px-1 -mx-1 py-0.5 select-none"
                       style={{ fontSize: `${roleFontSize}px` }}
                     >
-                      {exp.role} {exp.company && <span className="text-neutral-400 font-mono text-xs font-normal">@ {exp.company}</span>}
+                      {exp.role} {exp.company && <span className="font-sans font-normal" style={{ fontSize: '16px', marginLeft: '20px', color: '#333333' }}>@ {exp.company}</span>}
                     </h5>
 
                     {/* Highly polished subtle description paragraphs with auto-scaling flow */}
