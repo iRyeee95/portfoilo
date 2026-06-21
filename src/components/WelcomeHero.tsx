@@ -156,7 +156,7 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
 
       {/* Centerpiece Monolithic Typography block */}
       <div 
-        className="relative z-10 w-full max-w-7xl px-4 sm:px-6 lg:px-8 my-auto flex flex-col items-start space-y-6"
+        className="relative z-10 w-full max-w-none px-4 sm:px-6 lg:px-8 my-auto flex flex-col items-start space-y-6"
         style={{ 
           textAlign: 'left', 
           width: '100%', 
@@ -175,7 +175,7 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
             src="/welcome-text.png"
             alt="Welcome Title"
             referrerPolicy="no-referrer"
-            className="w-full h-auto object-contain select-none"
+            className="w-full h-auto object-contain object-left select-none"
             style={{ 
               pointerEvents: 'none',
               maxHeight: `${maxHeight}px`
