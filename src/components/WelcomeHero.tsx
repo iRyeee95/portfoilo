@@ -1,6 +1,8 @@
 import React, { useRef, useState, useEffect } from 'react';
 import { ArrowDown, Play, Pause, Volume2, VolumeX } from 'lucide-react';
 import SplitText from './SplitText';
+import savedConfigData from '../data/config.json';
+const savedConfig = savedConfigData as any;
 
 interface WelcomeHeroProps {
   onEnter: () => void;
@@ -15,29 +17,29 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
   
   // Interactive styling state for the user uploaded custom PNG
   const [imgWidth, setImgWidth] = useState<number>(() => {
-    const saved = localStorage.getItem('welcome_img_width');
+    const saved = savedConfig.welcome_img_width || localStorage.getItem('welcome_img_width');
     return saved ? parseInt(saved, 10) : 950;
   });
   const [leftMargin, setLeftMargin] = useState<number>(() => {
-    const saved = localStorage.getItem('welcome_img_left_margin');
+    const saved = savedConfig.welcome_img_left_margin || localStorage.getItem('welcome_img_left_margin');
     return saved ? parseInt(saved, 10) : 48;
   });
   const [topOffset, setTopOffset] = useState<number>(() => {
-    const saved = localStorage.getItem('welcome_img_top_offset');
+    const saved = savedConfig.welcome_img_top_offset || localStorage.getItem('welcome_img_top_offset');
     return saved ? parseInt(saved, 10) : -20;
   });
   const [maxHeight, setMaxHeight] = useState<number>(() => {
-    const saved = localStorage.getItem('welcome_img_max_height');
+    const saved = savedConfig.welcome_img_max_height || localStorage.getItem('welcome_img_max_height');
     return saved ? parseInt(saved, 10) : 650;
   });
   // Custom video background mask opacity (0 to 100)
   const [maskOpacity, setMaskOpacity] = useState<number>(() => {
-    const saved = localStorage.getItem('welcome_mask_opacity');
+    const saved = savedConfig.welcome_mask_opacity || localStorage.getItem('welcome_mask_opacity');
     return saved ? parseInt(saved, 10) : 35;
   });
   // Custom video background mask vertical height / gradient spread width (10 to 100)
   const [maskHeight, setMaskHeight] = useState<number>(() => {
-    const saved = localStorage.getItem('welcome_mask_height');
+    const saved = savedConfig.welcome_mask_height || localStorage.getItem('welcome_mask_height');
     return saved ? parseInt(saved, 10) : 100;
   });
 

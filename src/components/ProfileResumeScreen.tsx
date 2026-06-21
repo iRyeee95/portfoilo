@@ -438,7 +438,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     const config: Record<string, any> = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
-      if (key && (key.startsWith('badge_') || key.startsWith('resume_'))) {
+      if (key && (key.startsWith('badge_') || key.startsWith('resume_') || key.startsWith('welcome_'))) {
         config[key] = localStorage.getItem(key);
       }
     }
@@ -518,7 +518,6 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
       {/* Background architectural mesh & elegant layouts */}
       <div className="absolute top-0 right-1/4 w-[600px] h-[600px] bg-[#E1FF39]/3 rounded-full blur-[140px] pointer-events-none select-none z-0" />
-      <div className="absolute -bottom-20 -left-20 w-[400px] h-[400px] bg-neutral-100 rounded-full blur-[100px] pointer-events-none select-none z-0" />
 
       {/* Top Section Registry Label deleted as per user request */}
 
