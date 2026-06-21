@@ -799,10 +799,10 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                     <div className="absolute inset-0 bg-[linear-gradient(to_right,rgba(0,0,0,0.06)_1px,transparent_1px),linear-gradient(to_bottom,rgba(0,0,0,0.06)_1px,transparent_1px)] bg-[size:10px_10px] opacity-40 z-0 pointer-events-none" />
                     
                     {/* Large Bold Printed Vertical Branding in Deep Carbon Black */}
-                    <div className="absolute left-5 top-4 text-[56px] font-mono font-black text-neutral-950/80 leading-none tracking-widest pointer-events-none select-none z-10" style={{ writingMode: 'vertical-rl' }}>
+                    <div translate="no" className="notranslate absolute left-5 top-4 text-[56px] font-mono font-black text-neutral-950/80 leading-none tracking-widest pointer-events-none select-none z-10" style={{ writingMode: 'vertical-rl' }}>
                       DESIGN
                     </div>
-                    <div className="absolute right-5 bottom-4 text-sm font-mono font-extrabold text-neutral-900 leading-none tracking-widest uppercase pointer-events-none select-none z-10">
+                    <div translate="no" className="notranslate absolute right-5 bottom-4 text-sm font-mono font-extrabold text-neutral-900 leading-none tracking-widest uppercase pointer-events-none select-none z-10">
                       2026
                     </div>
                   </div>
@@ -863,7 +863,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                         {/* Name & English Name Block to the right */}
                         <div className="flex flex-col justify-center text-left py-2 pl-2">
                           <span 
-                            className="font-mono text-[#E1FF39]/90 font-bold block leading-none uppercase tracking-widest mb-1.5 select-none"
+                            translate="no"
+                            className="notranslate font-mono text-[#E1FF39]/90 font-bold block leading-none uppercase tracking-widest mb-1.5 select-none"
                             style={{ fontSize: `${labelSize}px`, color: backBadgeBg }}
                           >
                             NOME / 姓名
@@ -916,13 +917,15 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                           {/* Years Exp block */}
                           <div className="col-span-2 flex flex-col items-start px-1">
                             <span 
-                              className="font-mono text-neutral-500 block uppercase tracking-wider mb-1 select-none"
+                              translate="no"
+                              className="notranslate font-mono text-neutral-500 block uppercase tracking-wider mb-1 select-none"
                               style={{ fontSize: `${labelSize}px` }}
                             >
                               YEARS EXP / 工作年限
                             </span>
                             <span 
-                              className={`font-sans font-extrabold tracking-tight block px-1.5 py-0.5 select-none outline-none rounded-md transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
+                              translate="no"
+                              className={`notranslate font-sans font-extrabold tracking-tight block px-1.5 py-0.5 select-none outline-none rounded-md transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                               style={{ fontSize: `${valueSize}px`, color: backBadgeBg }}
                               contentEditable={showTunerPanels}
                               suppressContentEditableWarning={showTunerPanels ? true : undefined}
@@ -942,13 +945,15 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                           {/* Date of Birth block */}
                           <div className="border-t border-neutral-800/60 pt-3 flex flex-col items-start px-1">
                             <span 
-                              className="font-mono text-neutral-500 block uppercase tracking-wider mb-1 select-none"
+                              translate="no"
+                              className="notranslate font-mono text-neutral-500 block uppercase tracking-wider mb-1 select-none"
                               style={{ fontSize: `${labelSize}px` }}
                             >
                               DATE OF BIRTH / 生日
                             </span>
                             <span 
-                              className={`font-mono font-bold text-neutral-300 block select-none outline-none rounded-md transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
+                              translate="no"
+                              className={`notranslate font-mono font-bold text-neutral-300 block select-none outline-none rounded-md transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                               style={{ fontSize: `${valueSize}px` }}
                               contentEditable={showTunerPanels}
                               suppressContentEditableWarning={showTunerPanels ? true : undefined}
@@ -987,7 +992,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                               )}
 
                               <span 
-                                className="font-mono block w-full uppercase tracking-wider mb-1 transition-colors duration-200"
+                                translate="no"
+                                className="notranslate font-mono block w-full uppercase tracking-wider mb-1 transition-colors duration-200"
                                 style={{ 
                                   fontSize: `${labelSize}px`,
                                   color: copiedTel ? backBadgeBg : '#737373' 
@@ -996,7 +1002,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                                 {copiedTel ? '★ COPIED / 已复制' : 'TEL / 电话 / 微信'}
                               </span>
                               <span 
-                                className="font-mono font-bold block transition-colors duration-200"
+                                translate="no"
+                                className="notranslate font-mono font-bold block transition-colors duration-200"
                                 style={{ 
                                   fontSize: `${valueSize}px`,
                                   color: copiedTel ? backBadgeBg : hoveringTel ? backBadgeBg : '#d4d4d4'
@@ -1029,7 +1036,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                               )}
 
                               <span 
-                                className="font-mono block w-full uppercase tracking-wider mb-1 transition-colors duration-200"
+                                translate="no"
+                                className="notranslate font-mono block w-full uppercase tracking-wider mb-1 transition-colors duration-200"
                                 style={{ 
                                   fontSize: `${labelSize}px`,
                                   color: copiedEmail ? backBadgeBg : '#737373' 
@@ -1038,7 +1046,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                                 {copiedEmail ? '★ COPIED / 已复制' : 'EMAIL / 邮箱'}
                               </span>
                               <span 
-                                className="font-mono font-semibold border-b block truncate w-full transition-colors duration-200"
+                                translate="no"
+                                className="notranslate font-mono font-semibold border-b block truncate w-full transition-colors duration-200"
                                 style={{ 
                                   fontSize: `${telEmailSize}px`,
                                   color: copiedEmail ? backBadgeBg : hoveringEmail ? backBadgeBg : '#f5f5f5',

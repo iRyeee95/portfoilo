@@ -43,7 +43,7 @@ export default function Header({
             </span>
             <span translate="no" className="notranslate text-neutral-800 font-medium">XUZIYI STUDIO</span>
             <span className="text-neutral-300">|</span>
-            <span className="hidden sm:inline">SENIOR VISUAL & MOTION DESIGN</span>
+            <span translate="no" className="notranslate hidden sm:inline">SENIOR VISUAL & MOTION DESIGN</span>
           </div>
 
           <div className="flex items-center gap-4 text-neutral-500">
