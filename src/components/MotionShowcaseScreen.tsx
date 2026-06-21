@@ -358,9 +358,9 @@ export default function MotionShowcaseScreen() {
       <div className="relative z-10 mx-auto w-full max-w-7xl px-4 sm:px-6 lg:px-8 pt-10 pb-6">
         <div className="relative bg-[#ffffff] rounded-xl p-8 md:p-12 grid grid-cols-1 md:grid-cols-12 md:items-end gap-6">
           <div className="md:col-span-7 space-y-4">
-            <h2 className="font-sans text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-neutral-950 uppercase leading-none">
+            <h2 translate="no" className="notranslate font-sans text-4xl sm:text-5xl lg:text-6xl font-black tracking-tighter text-neutral-950 uppercase leading-none">
               动态视觉表达 <br />
-              <span className="text-[60px] font-normal text-[#E1FF39] tracking-tight leading-none uppercase not-italic block mt-1">#MOTION DESIGN</span>
+              <span translate="no" className="notranslate text-[60px] font-normal text-[#E1FF39] tracking-tight leading-none uppercase not-italic block mt-1">#MOTION DESIGN</span>
             </h2>
           </div>
           <div className="md:col-span-5 border-l-2 border-neutral-200 pl-5 text-xs text-neutral-800 font-mono space-y-2 leading-relaxed">

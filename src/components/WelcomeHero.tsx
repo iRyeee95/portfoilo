@@ -166,14 +166,15 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
         <div className="flex flex-wrap items-center gap-4 pt-2">
           <button
             onClick={onEnter}
-            className="group px-6 py-3.5 rounded-lg font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-xl flex items-center gap-2 cursor-pointer hover:opacity-90"
+            translate="no"
+            className="notranslate group px-6 py-3.5 rounded-lg font-mono text-xs font-bold tracking-wider uppercase transition-all duration-300 shadow-xl flex items-center gap-2 cursor-pointer hover:opacity-90"
             id="enter-studio-btn"
             style={{ 
               marginLeft: '0px', 
               backgroundColor: '#E1FF39' 
             }}
           >
-            <span style={{ color: '#000000' }}>ENTER DESIGN STUDIO</span>
+            <span translate="no" className="notranslate" style={{ color: '#000000' }}>ENTER DESIGN STUDIO</span>
             <ArrowDown className="h-4 w-4 transform group-hover:translate-y-1 transition-transform" style={{ color: '#000000' }} />
           </button>
         </div>

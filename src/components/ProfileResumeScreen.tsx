@@ -639,7 +639,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                   <>
                     {/* 1. FIGMA FLOATING LOGO */}
                     <div 
-                      className="absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none"
+                      translate="no"
+                      className="notranslate absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none"
                       style={{
                         top: isHovered ? '-115px' : '-15px',
                         left: isHovered ? '-145px' : '-35px',
@@ -662,7 +663,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
                     {/* 2. ADOBE AFTER EFFECTS (Ae) FLOATING LOGO */}
                     <div 
-                      className="absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border font-sans font-black text-xs tracking-tight transition-all duration-500 ease-out pointer-events-none select-none"
+                      translate="no"
+                      className="notranslate absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border font-sans font-black text-xs tracking-tight transition-all duration-500 ease-out pointer-events-none select-none"
                       style={{
                         top: isHovered ? '145px' : '95px',
                         right: isHovered ? '-145px' : '-35px',
@@ -680,7 +682,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
                     {/* 3. ADOBE PHOTOSHOP (Ps) FLOATING LOGO */}
                     <div 
-                      className="absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border font-sans font-black text-xs tracking-tight transition-all duration-500 ease-out pointer-events-none select-none"
+                      translate="no"
+                      className="notranslate absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border font-sans font-black text-xs tracking-tight transition-all duration-500 ease-out pointer-events-none select-none"
                       style={{
                         bottom: isHovered ? '145px' : '95px',
                         left: isHovered ? '-145px' : '-35px',
@@ -698,7 +701,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
                     {/* 4. BLENDER FLOATING LOGO */}
                     <div 
-                      className="absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none"
+                      translate="no"
+                      className="notranslate absolute z-35 w-11 h-11 rounded-2xl flex items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none"
                       style={{
                         bottom: isHovered ? '-105px' : '-10px',
                         right: isHovered ? '-145px' : '-35px',
@@ -712,7 +716,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                     >
                       <svg className="w-6.5 h-6" viewBox="0 0 181 148" fill="none" xmlns="http://www.w3.org/2000/svg">
                         <g transform="matrix(.281 0 0 .281 -41.8 -43.7)">
-                          <g transform="matrix(21.6 0 0 21.6 -4857 7665)">
+                           <g transform="matrix(21.6 0 0 21.6 -4857 7665)">
                             <path d="m243-334c0.106-1.89 1.03-3.56 2.43-4.74 1.37-1.16 3.21-1.87 5.23-1.87 2.01 0 3.85 0.709 5.22 1.87 1.4 1.18 2.32 2.85 2.43 4.74 0.106 1.94-0.675 3.75-2.04 5.09-1.4 1.36-3.38 2.22-5.61 2.22s-4.22-0.854-5.61-2.22c-1.37-1.34-2.15-3.14-2.04-5.08z" fill="#fff"/>
                           </g>
                           <g transform="matrix(11.1 0 0 11.1 -2215 4153)">
@@ -725,7 +729,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
                     {/* 5. TAPNOW FLOATING LOGO */}
                     <div 
-                      className="absolute z-35 w-12 h-12 rounded-2xl flex flex-col items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none overflow-hidden"
+                      translate="no"
+                      className="notranslate absolute z-35 w-12 h-12 rounded-2xl flex flex-col items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none overflow-hidden"
                       style={{
                         top: isHovered ? '-115px' : '-15px',
                         right: isHovered ? '-145px' : '-35px',
@@ -747,7 +752,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
                     {/* 6. JIMENG (即梦) FLOATING LOGO */}
                     <div 
-                      className="absolute z-35 w-12 h-12 rounded-2xl flex flex-col items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none overflow-hidden"
+                      translate="no"
+                      className="notranslate absolute z-35 w-12 h-12 rounded-2xl flex flex-col items-center justify-center border transition-all duration-500 ease-out pointer-events-none select-none overflow-hidden"
                       style={{
                         top: isHovered ? '145px' : '95px',
                         left: isHovered ? '-145px' : '-35px',
@@ -1092,17 +1098,19 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                   
                   <div className="space-y-1.5">
                     <span 
-                      className="font-mono text-neutral-400 block font-bold tracking-wider px-1 -mx-1 py-0.5 select-none"
+                      translate="no"
+                      className="notranslate font-mono text-neutral-400 block font-bold tracking-wider px-1 -mx-1 py-0.5 select-none"
                       style={{ fontSize: `${periodFontSize}px` }}
                     >
                       {exp.period}
                     </span>
                     
                     <h5 
-                      className="font-sans font-black text-neutral-900 leading-snug px-1 -mx-1 py-0.5 select-none"
+                      translate="no"
+                      className="notranslate font-sans font-black text-neutral-900 leading-snug px-1 -mx-1 py-0.5 select-none"
                       style={{ fontSize: `${roleFontSize}px` }}
                     >
-                      {exp.role} {exp.company && <span className="font-sans font-normal" style={{ fontSize: '16px', marginLeft: '20px', color: '#333333' }}>@ {exp.company}</span>}
+                      {exp.role} {exp.company && <span translate="no" className="notranslate font-sans font-normal" style={{ fontSize: '16px', marginLeft: '20px', color: '#333333' }}>@ {exp.company}</span>}
                     </h5>
 
                     {/* Highly polished subtle description paragraphs with auto-scaling flow */}
@@ -1122,7 +1130,10 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
             {/* Elegant Education / Alumni list bottom section */}
             <div className="pt-8 border-t border-neutral-200 space-y-3">
               <div className="flex justify-between items-center">
-                <span className="text-[10px] font-mono font-bold tracking-widest text-[#9c9a8a] uppercase block animate-pulse">
+                <span 
+                  translate="no"
+                  className="notranslate text-[10px] font-mono font-bold tracking-widest text-[#9c9a8a] uppercase block animate-pulse"
+                >
                   ALMA MATER & EDUCATION // 毕业院校
                 </span>
 
@@ -1135,7 +1146,10 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                   >
                     <div className="flex items-center gap-2 flex-1">
                       <span className="text-neutral-950 font-bold bg-[#E1FF39] px-1 rounded text-[8px] shrink-0" style={{ backgroundColor: timelineColor }}>🎓</span>
-                      <span className="px-1 flex-1 select-none font-bold text-neutral-800">
+                      <span 
+                        translate="no"
+                        className="notranslate px-1 flex-1 select-none font-bold text-neutral-800"
+                      >
                         {school}
                       </span>
                     </div>

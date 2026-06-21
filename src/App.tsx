@@ -71,9 +71,9 @@ export default function App() {
             {/* Immersive Swiss structural design statement */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end pb-12" id="editorial-intro">
               <div className="md:col-span-8 space-y-4">
-                <h2 className="font-sans text-4xl font-extrabold tracking-tighter text-neutral-900 sm:text-6xl max-w-3xl leading-none uppercase h-[60px] pl-0 bg-[#E1FF39]">
+                <h2 translate="no" className="notranslate font-sans text-4xl font-extrabold tracking-tighter text-neutral-900 sm:text-6xl max-w-3xl leading-none uppercase h-[60px] pl-0 bg-[#E1FF39]">
                   {thirdScreenConfig.mainTitleLine1} <br />
-                  <span className="text-[#ebebeb] font-mono text-[40px]">{thirdScreenConfig.mainTitleLine2}</span>
+                  <span translate="no" className="notranslate text-[#ebebeb] font-mono text-[40px]">{thirdScreenConfig.mainTitleLine2}</span>
                 </h2>
               </div>
             </div>
