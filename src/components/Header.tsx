@@ -41,7 +41,7 @@ export default function Header({
               <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-emerald-400 opacity-75"></span>
               <span className="relative inline-flex rounded-full h-2 w-2 bg-emerald-500"></span>
             </span>
-            <span className="text-neutral-800 font-medium">XUZIYI STUDIO</span>
+            <span translate="no" className="notranslate text-neutral-800 font-medium">XUZIYI STUDIO</span>
             <span className="text-neutral-300">|</span>
             <span className="hidden sm:inline">SENIOR VISUAL & MOTION DESIGN</span>
           </div>
@@ -63,7 +63,7 @@ export default function Header({
       <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-6">
         <div className="flex flex-col gap-6 md:flex-row md:items-end md:justify-between">
           <div id="author-branding">
-            <h1 className="font-sans text-3xl font-extrabold tracking-tighter text-neutral-900 sm:text-4xl">
+            <h1 translate="no" className="notranslate font-sans text-3xl font-extrabold tracking-tighter text-neutral-900 sm:text-4xl">
               XUZIYI / 许子熠
             </h1>
             <p className="mt-1.5 text-sm font-mono text-neutral-500 max-w-md">

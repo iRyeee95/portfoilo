@@ -865,7 +865,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                           
                           {/* Inline editable name */}
                           <span 
-                            className={`font-sans font-black text-white block select-none mb-1 outline-none rounded px-1 transition-colors whitespace-pre-line ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
+                            translate="no"
+                            className={`notranslate font-sans font-black text-white block select-none mb-1 outline-none rounded px-1 transition-colors whitespace-pre-line ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                             style={{ fontSize: `${nameSize}px`, lineHeight: `${nameLineHeight}px` }}
                             contentEditable={showTunerPanels}
                             suppressContentEditableWarning={showTunerPanels ? true : undefined}
@@ -883,7 +884,8 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
                           
                           {/* Inline editable EN name */}
                           <span 
-                            className={`font-mono text-neutral-400 font-semibold block uppercase tracking-tight select-none outline-none rounded px-1 transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
+                            translate="no"
+                            className={`notranslate font-mono text-neutral-400 font-semibold block uppercase tracking-tight select-none outline-none rounded px-1 transition-colors ${showTunerPanels ? 'cursor-text hover:bg-white/5' : ''}`}
                             style={{ fontSize: `${engNameSize}px` }}
                             contentEditable={showTunerPanels}
                             suppressContentEditableWarning={showTunerPanels ? true : undefined}

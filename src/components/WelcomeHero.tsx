@@ -15,58 +15,33 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
   const [isMuted, setIsMuted] = useState(true);
   const [imgError, setImgError] = useState(false);
   
-  // Interactive styling state for the user uploaded custom PNG
-  const [imgWidth, setImgWidth] = useState<number>(() => {
-    const saved = savedConfig.welcome_img_width || localStorage.getItem('welcome_img_width');
+  // Definitive styling state for the user uploaded custom PNG (bypass local storage to align compiled and production builds)
+  const [imgWidth] = useState<number>(() => {
+    const saved = savedConfig.welcome_img_width;
     return saved ? parseInt(saved, 10) : 1610;
   });
-  const [leftMargin, setLeftMargin] = useState<number>(() => {
-    const saved = savedConfig.welcome_img_left_margin || localStorage.getItem('welcome_img_left_margin');
+  const [leftMargin] = useState<number>(() => {
+    const saved = savedConfig.welcome_img_left_margin;
     return saved ? parseInt(saved, 10) : 55;
   });
-  const [topOffset, setTopOffset] = useState<number>(() => {
-    const saved = savedConfig.welcome_img_top_offset || localStorage.getItem('welcome_img_top_offset');
+  const [topOffset] = useState<number>(() => {
+    const saved = savedConfig.welcome_img_top_offset;
     return saved ? parseInt(saved, 10) : 180;
   });
-  const [maxHeight, setMaxHeight] = useState<number>(() => {
-    const saved = savedConfig.welcome_img_max_height || localStorage.getItem('welcome_img_max_height');
+  const [maxHeight] = useState<number>(() => {
+    const saved = savedConfig.welcome_img_max_height;
     return saved ? parseInt(saved, 10) : 500;
   });
   // Custom video background mask opacity (0 to 100)
-  const [maskOpacity, setMaskOpacity] = useState<number>(() => {
-    const saved = savedConfig.welcome_mask_opacity || localStorage.getItem('welcome_mask_opacity');
+  const [maskOpacity] = useState<number>(() => {
+    const saved = savedConfig.welcome_mask_opacity;
     return saved ? parseInt(saved, 10) : 52;
   });
   // Custom video background mask vertical height / gradient spread width (10 to 100)
-  const [maskHeight, setMaskHeight] = useState<number>(() => {
-    const saved = savedConfig.welcome_mask_height || localStorage.getItem('welcome_mask_height');
+  const [maskHeight] = useState<number>(() => {
+    const saved = savedConfig.welcome_mask_height;
     return saved ? parseInt(saved, 10) : 65;
   });
-
-  // Sync with localStorage
-  useEffect(() => {
-    localStorage.setItem('welcome_img_width', imgWidth.toString());
-  }, [imgWidth]);
-
-  useEffect(() => {
-    localStorage.setItem('welcome_img_left_margin', leftMargin.toString());
-  }, [leftMargin]);
-
-  useEffect(() => {
-    localStorage.setItem('welcome_img_top_offset', topOffset.toString());
-  }, [topOffset]);
-
-  useEffect(() => {
-    localStorage.setItem('welcome_img_max_height', maxHeight.toString());
-  }, [maxHeight]);
-
-  useEffect(() => {
-    localStorage.setItem('welcome_mask_opacity', maskOpacity.toString());
-  }, [maskOpacity]);
-
-  useEffect(() => {
-    localStorage.setItem('welcome_mask_height', maskHeight.toString());
-  }, [maskHeight]);
 
   const handleAnimationComplete = () => {
     console.log('All letters have animated!');
