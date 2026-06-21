@@ -18,29 +18,29 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
   // Interactive styling state for the user uploaded custom PNG
   const [imgWidth, setImgWidth] = useState<number>(() => {
     const saved = savedConfig.welcome_img_width || localStorage.getItem('welcome_img_width');
-    return saved ? parseInt(saved, 10) : 950;
+    return saved ? parseInt(saved, 10) : 1610;
   });
   const [leftMargin, setLeftMargin] = useState<number>(() => {
     const saved = savedConfig.welcome_img_left_margin || localStorage.getItem('welcome_img_left_margin');
-    return saved ? parseInt(saved, 10) : 48;
+    return saved ? parseInt(saved, 10) : 55;
   });
   const [topOffset, setTopOffset] = useState<number>(() => {
     const saved = savedConfig.welcome_img_top_offset || localStorage.getItem('welcome_img_top_offset');
-    return saved ? parseInt(saved, 10) : -20;
+    return saved ? parseInt(saved, 10) : 180;
   });
   const [maxHeight, setMaxHeight] = useState<number>(() => {
     const saved = savedConfig.welcome_img_max_height || localStorage.getItem('welcome_img_max_height');
-    return saved ? parseInt(saved, 10) : 650;
+    return saved ? parseInt(saved, 10) : 500;
   });
   // Custom video background mask opacity (0 to 100)
   const [maskOpacity, setMaskOpacity] = useState<number>(() => {
     const saved = savedConfig.welcome_mask_opacity || localStorage.getItem('welcome_mask_opacity');
-    return saved ? parseInt(saved, 10) : 35;
+    return saved ? parseInt(saved, 10) : 52;
   });
   // Custom video background mask vertical height / gradient spread width (10 to 100)
   const [maskHeight, setMaskHeight] = useState<number>(() => {
     const saved = savedConfig.welcome_mask_height || localStorage.getItem('welcome_mask_height');
-    return saved ? parseInt(saved, 10) : 100;
+    return saved ? parseInt(saved, 10) : 65;
   });
 
   // Sync with localStorage
@@ -175,10 +175,11 @@ export default function WelcomeHero({ onEnter, onNavigateSection }: WelcomeHeroP
             src="/welcome-text.png"
             alt="Welcome Title"
             referrerPolicy="no-referrer"
-            className="w-full h-auto object-contain object-left select-none"
+            className="block h-auto max-w-full select-none"
             style={{ 
               pointerEvents: 'none',
-              maxHeight: `${maxHeight}px`
+              maxHeight: `${maxHeight}px`,
+              width: `${imgWidth}px`
             }}
             onError={(e) => {
               console.warn("Retrying png file load or loading default asset representation.");
