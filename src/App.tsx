@@ -66,16 +66,18 @@ export default function App() {
         {/* Soft background ambient glow blobs */}
         <div className="absolute top-0 left-1/3 w-[500px] h-[500px] bg-[#E1FF39]/3 rounded-full blur-[120px] pointer-events-none select-none z-0" />
         
-        <main className="relative z-10 mx-auto max-w-7xl px-4 sm:px-6 lg:px-8 py-16" id="works-stage-container">
+        <main className="relative z-10 mx-auto max-w-[1540px] 2xl:max-w-[1700px] px-4 sm:px-8 lg:px-12 py-20 lg:py-24" id="works-stage-container">
           <div className="space-y-12">
             {/* Immersive Swiss structural design statement */}
-            <div className="grid grid-cols-1 gap-6 md:grid-cols-12 md:items-end pb-12" id="editorial-intro">
-              <div className="md:col-span-8 space-y-4">
-                <h2 translate="no" className="notranslate font-sans text-4xl font-extrabold tracking-tighter text-neutral-900 sm:text-6xl max-w-3xl leading-none uppercase h-[60px] pl-0 bg-[#E1FF39]">
-                  {thirdScreenConfig.mainTitleLine1} <br />
-                  <span translate="no" className="notranslate text-[#ebebeb] font-mono text-[40px]">{thirdScreenConfig.mainTitleLine2}</span>
+            <div className="flex flex-col space-y-3 pb-8" id="editorial-intro">
+              <div className="inline-block bg-[#E1FF39] px-5 py-2.5 rounded-sm shadow-sm w-fit">
+                <h2 translate="no" className="notranslate font-sans text-4xl sm:text-6xl lg:text-7xl font-extrabold tracking-tight text-neutral-950 uppercase leading-none">
+                  {thirdScreenConfig.mainTitleLine1}
                 </h2>
               </div>
+              <p translate="no" className="notranslate text-neutral-400 font-mono text-xl sm:text-3xl lg:text-4xl font-bold tracking-tight block pt-1">
+                {thirdScreenConfig.mainTitleLine2}
+              </p>
             </div>
 
             {/* Project Grid Catalog */}
