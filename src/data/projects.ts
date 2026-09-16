@@ -6,10 +6,10 @@ import { Project, ProjectCategory, DesignerProfile } from '../types';
 // =========================================================================
 export const thirdScreenConfig = {
   // 左侧艺术宣言巨型标题第一行 / Main Headline Line 1
-  mainTitleLine1: '视觉运营与内容生态构建',
+  mainTitleLine1: '项目经历',
   
   // 左侧艺术宣言巨型标题第二行 / Main Headline Line 2 (支持中文或英文)
-  mainTitleLine2: 'Visual Operations & Content Ecosystem',
+  mainTitleLine2: 'PROJECT EXPERIENCE',
   
   // 右侧探讨合作按钮文本 / CTA Inquiry Link text
   ctaText: 'EXPLORE ALL ARCHIVES / 浏览全部作品'
@@ -18,17 +18,17 @@ export const thirdScreenConfig = {
 export const projects: Project[] = [
   {
     id: 'nordmuseet',
-    title: '新春活动运营',
-    subtitle: '商业节点视觉企划',
+    title: '新春运营活动',
+    subtitle: '商业节点运营活动视觉企划',
     category: ProjectCategory.Branding,
-    imageUrl: '/cny.png?v=20260616_v4',
-    fallbackUrl: 'https://images.unsplash.com/photo-1582234479532-6804bb62b4bd?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: '/project1_cover.png',
+    fallbackUrl: '/cny.png',
     client: '元气桌面 贺岁企划',
     year: '2025',
     role: 'Art Director & Lead Illustrator',
-    services: ['Key Visual Strategy', '3D Clay Rendering', 'New Year Campaign Design', 'Social Assets'],
-    challenge: 'HOW to convey the joyful atmosphere of Chinese New Year through playful, modern, high-fidelity 3D clay figures that engage a tech-savvy user tier.',
-    solution: 'Designed and rendered 5 festive Caishen character figures with vivid expressions, smooth clay textures, and bright festive colors. Established a cohesive warm color palette.',
+    services: ['运营活动主视觉企划', '3D黏土角色渲染', '全链路商业节点物料', '社交媒体宣发物料'],
+    challenge: '如何围绕新春节点打造高辨识度、亲和力强且符合年轻用户审美的运营主视觉，并构建完整的节点活动视觉链路。',
+    solution: '企划并渲染高精度3D新春角色与主视觉KV，统一节日色彩与光影材质质感，建立高转化动线的节点运营物料体系。',
     designSystem: {
       primaryColor: '#FF4500',
       secondaryColor: '#FFD700',
@@ -40,7 +40,7 @@ export const projects: Project[] = [
         { name: 'Festive Orange-Red', hex: '#FF4500' },
         { name: 'Imperial Gold', hex: '#FFD700' },
         { name: 'Traditional Ink Black', hex: '#111111' },
-         { name: 'Soft Cream', hex: '#FAF9F6' }
+        { name: 'Soft Cream', hex: '#FAF9F6' }
       ],
       specifications: {
         grid: 'Symmetric Center Layout',
@@ -53,26 +53,35 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80'
     ],
     featured: true,
-    detailImageUrl: '/cny_long.jpg?v=20260616_v5',
+    detailImageUrl: '/project1_detail.jpg?v=20260915_r1',
     detailVideoUrls: [
       '/cny_video_1.mp4?v=20260616_v5',
       '/cny_video_2.mp4?v=20260616_v5'
     ],
-    detailVideoPosition: 'overlay'
+    detailVideoPosition: 'overlay',
+    detailVideoConfig: {
+      mode: 'pixels',
+      pxTop: 16460,
+      pxWidth: 462,
+      pxHeight: 1000,
+      pxGap: 40,
+      pxLeft: 50,
+      videoRadius: 28
+    }
   },
   {
     id: 'swisschronicle',
-    title: '桌面视觉生态',
-    subtitle: '千万级全链路视觉生态',
+    title: '壁纸编辑器2.0视觉升级',
+    subtitle: '围绕内容发现、编辑创作与素材体系的视觉升级',
     category: ProjectCategory.Editorial,
-    imageUrl: '/desktop.png?v=20260616_v4',
-    fallbackUrl: 'https://images.unsplash.com/photo-1550751827-4bd374c3f58b?auto=format&fit=crop&w=1200&q=80',
+    imageUrl: '/project2_cover.png',
+    fallbackUrl: '/desktop.png',
     client: 'YUAN QI WALLPAPER EDITOR',
     year: '2024',
-    role: 'Senior Poster & System Designer',
-    services: ['Platform Blueprint', 'UGC Core Tool Branding', 'Interface Architecture', 'Exhibition Visuals'],
-    challenge: 'Structuring a robust ecosystem for billions of user-generated desktop templates while maintaining aesthetic purity and premium tool interfaces.',
-    solution: 'Designed an elegant dark mode system with golden guidelines. Kept tools highly technical, minimal, and structural, focusing layout weight on content rather than framing elements.',
+    role: 'Senior Visual & System Designer',
+    services: ['编辑器架构视觉重塑', '内容发现流重构', '创作工具界面精细化', '素材系统规范化'],
+    challenge: '围绕内容发现、编辑创作与素材体系进行全方位视觉升级，平衡复杂专业创作功能与轻量易用的视觉交互感知。',
+    solution: '重构深色系技术感界面与黄金比例排版，建立模块化素材与工具面板规范，大幅降低创作者认知负荷。',
     designSystem: {
       primaryColor: '#0A0A0A',
       secondaryColor: '#E2E8F0',
@@ -97,21 +106,60 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1620641788421-7a1c342ea42e?auto=format&fit=crop&w=800&q=80'
     ],
     featured: true,
-    detailImageUrls: ['/desktop_long_1.jpg?v=20260616_v4', '/desktop_long_2.jpg?v=20260616_v4']
+    detailImageUrl: '/project2_detail.jpg'
+  },
+  {
+    id: 'channelgrowth',
+    title: '渠道推广视觉设计',
+    subtitle: '以差异化视觉连接品牌合作、内容传播与用户转化',
+    category: ProjectCategory.Branding,
+    imageUrl: '/project3_cover.png',
+    fallbackUrl: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=1200&q=80',
+    client: '全域应用渠道合作',
+    year: '2024',
+    role: 'Senior Visual Designer',
+    services: ['渠道推广视觉矩阵', '品牌跨界合作KV', '应用商店转化优化', '多平台差异化物料'],
+    challenge: '以差异化视觉连接品牌合作、内容传播与用户转化，针对不同渠道把控平台特性并重构展示层级，解决传统展示焦点涣散痛点。',
+    solution: '搭建渠道精细化展示矩阵与关键转化漏斗视觉动线，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。',
+    designSystem: {
+      primaryColor: '#2563EB',
+      secondaryColor: '#10B981',
+      fontPairing: {
+        heading: 'Space Grotesk',
+        body: 'Inter'
+      },
+      colorPalette: [
+        { name: 'Channel Cobalt', hex: '#2563EB' },
+        { name: 'Growth Emerald', hex: '#10B981' },
+        { name: 'Deep Space', hex: '#0F172A' },
+        { name: 'Clean White', hex: '#FFFFFF' }
+      ],
+      specifications: {
+        grid: 'Modular Multi-channel Layout',
+        ratio: '16:10 Horizontal Balance',
+        direction: 'Precision Metrics, High-conversion Focus'
+      }
+    },
+    processImages: [
+      'https://images.unsplash.com/photo-1551288049-bebda4e38f71?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1507238691740-187a5b1d37b8?auto=format&fit=crop&w=800&q=80'
+    ],
+    featured: true,
+    detailImageUrl: '/project3_detail.jpg'
   },
   {
     id: 'aethercouture',
-    title: '多端生态延展',
-    subtitle: '移动端视觉趋势探索',
+    title: '移动端视觉升级',
+    subtitle: '从内容浏览到主题应用的移动端视觉体验升级',
     category: ProjectCategory.Digital,
-    imageUrl: '/mobile.png?v=20260616_v4',
-    fallbackUrl: 'https://images.unsplash.com/photo-1578632767115-351597cf2477?auto=format&fit=crop&w=1200&q=80',
-    client: '多风格美学换新与商业化赋能',
+    imageUrl: '/project4_cover.png',
+    fallbackUrl: '/mobile.png',
+    client: '移动端美学与主题生态',
     year: '2025',
     role: 'Lead Dynamic Interactive Illustrator',
-    services: ['Anime Curation', 'Responsive Layout Adaptation', 'Motion Choreography', 'Asset Production'],
-    challenge: 'Translating rich, layered anime visual assets onto vertically constrained mobile screens with varying UI aspects across platforms.',
-    solution: 'Created custom character safe areas. Designed soft, clean, warm-yellow-infused backdrops with high-contrast text and interactive micro-widgets.',
+    services: ['移动端视觉升级', '响应式布局适配', '主题生态规范', '交互微动效设计'],
+    challenge: '从内容浏览到主题应用的移动端视觉体验升级，打破移动端垂直视口局限，在多样化屏幕与机型上保持一致的高品质质感。',
+    solution: '建立移动端安全区与动态适配规范，打造沉浸式内容浏览流与细腻微交互，全面提升用户探索深度与转化。',
     designSystem: {
       primaryColor: '#FBBF24',
       secondaryColor: '#1F2937',
@@ -136,21 +184,21 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1531403009284-440f080d1e12?auto=format&fit=crop&w=800&q=80'
     ],
     featured: true,
-    detailImageUrl: '/mobile_long.jpg?v=20260616_v4'
+    detailImageUrl: '/project4_detail.jpg'
   },
   {
     id: 'fluidchrome',
-    title: 'AIGC 视觉探索',
-    subtitle: 'AI视觉创意落地',
+    title: '品牌IP角色设计',
+    subtitle: '从品牌基因提取到角色设定与商业场景延展',
     category: ProjectCategory.Artwork_3D,
-    imageUrl: '/aigc.png?v=20260616_v4',
-    fallbackUrl: 'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=1200&q=80',
-    client: 'MIXUE Art Lab Study',
+    imageUrl: '/project5_cover.png',
+    fallbackUrl: '/aigc.png',
+    client: '品牌IP美学实验室',
     year: '2024',
     role: '3D Art Director & Conceptual Creator',
-    services: ['Character Design', 'AIGC Model Training', 'Environmental Rendering', 'Commercial Campaign Strategy'],
-    challenge: 'Updating the traditional snowman IP to have a modern, high-contrast, stylized CGI-chilled 3D landscape look while preserving the sweet signature aesthetic.',
-    solution: 'Built sweeping ice-cream terrains with warm sunlight, dynamic movement actions (e.g., snowman pulling a massive ice cream cone with physical rope guides), and highly polished textures.',
+    services: ['品牌基因提取', '角色造型设定', '高精3D建模渲染', '商业场景多维延展'],
+    challenge: '从品牌基因提取到角色设定与商业场景延展，让扁平的品牌符号蜕变为富有生机、亲和力与商业延展力的三维IP形象。',
+    solution: '提取品牌标志性色彩与形态特征，塑造饱满的三维角色形态与质感表达，延展全套商业场景与节庆视觉体系。',
     designSystem: {
       primaryColor: '#F43F5E',
       secondaryColor: '#0EA5E9',
@@ -175,7 +223,46 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1635070041078-e363dbe005cb?auto=format&fit=crop&w=800&q=80'
     ],
     featured: false,
-    detailImageUrls: ['/aigc_long_1.jpg?v=20260616_v4', '/aigc_long_2.jpg?v=20260616_v4']
+    detailImageUrl: '/project5_detail.jpg'
+  },
+  {
+    id: 'motiondynamic',
+    title: '马年新春主视觉',
+    subtitle: '从角色设定、场景构建到商业主视觉的AIGC实践',
+    category: ProjectCategory.Artwork_3D,
+    imageUrl: '/project6_cover.png',
+    fallbackUrl: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=1200&q=80',
+    client: '马年新春AIGC商业视觉企划',
+    year: '2025 - 2026',
+    role: 'AIGC Art Director & Visual Lead',
+    services: ['马年商业主视觉KV', 'AIGC角色与场景构建', '高精度工作流落地', '跨端商业物料应用'],
+    challenge: '从角色设定、场景构建到商业主视觉的AIGC实践，探索前沿生成式AI工作流在商业高精度大画幅视觉中的精准落地与品控把关。',
+    solution: '融合前沿AIGC模型、LoRA微调与精准重绘管线，构建兼具生肖文化气韵与未来先锋视觉感的马年新春商业主视觉。',
+    designSystem: {
+      primaryColor: '#8B5CF6',
+      secondaryColor: '#E1FF39',
+      fontPairing: {
+        heading: 'Outfit',
+        body: 'JetBrains Mono'
+      },
+      colorPalette: [
+        { name: 'Vibrant Violet', hex: '#8B5CF6' },
+        { name: 'Fluorescent Lime', hex: '#E1FF39' },
+        { name: 'Carbon Black', hex: '#121212' },
+        { name: 'Smoke Gray', hex: '#E5E7EB' }
+      ],
+      specifications: {
+        grid: 'Dynamic Physics Grid',
+        ratio: '16:10 Cinematic Motion',
+        direction: 'Complex Particle Sim, High-framerate Physics'
+      }
+    },
+    processImages: [
+      'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?auto=format&fit=crop&w=800&q=80',
+      'https://images.unsplash.com/photo-1634017839464-5c339ebe3cb4?auto=format&fit=crop&w=800&q=80'
+    ],
+    featured: true,
+    detailImageUrl: '/project6_detail.jpg'
   }
 ];
 
