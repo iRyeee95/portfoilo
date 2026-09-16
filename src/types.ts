@@ -24,6 +24,21 @@ export interface DesignSystem {
   };
 }
 
+export interface ProjectVideoConfig {
+  mode?: 'pixels' | 'responsive';
+  pxTop?: number;
+  pxWidth?: number;
+  pxHeight?: number;
+  pxGap?: number;
+  pxLeft?: number;
+  respTop?: number;
+  respWidth?: number;
+  respGap?: number;
+  respLeft?: number;
+  respRatio?: number;
+  videoRadius?: number;
+}
+
 export interface Project {
   id: string;
   title: string;
@@ -45,6 +60,7 @@ export interface Project {
   detailVideoUrl?: string; // Optional custom video for the preview modal
   detailVideoUrls?: string[]; // Optional multiple overlay videos (e.g. side-by-side vertical videos)
   detailVideoPosition?: 'before' | 'after' | 'overlay'; // Position of video relative to the long image
+  detailVideoConfig?: ProjectVideoConfig; // Exact positioned specs for overlay video
 }
 
 export interface DesignerProfile {

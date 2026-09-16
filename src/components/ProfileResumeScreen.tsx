@@ -146,13 +146,13 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
   });
 
   const [cardMinHeight, setCardMinHeight] = useState<number>(() => {
-    return Number(savedConfig.badge_card_height || savedConfig.badge_cardMinHeight || (showTunerPanels && localStorage.getItem('badge_card_height')) || '687.7');
+    return Number(savedConfig.badge_card_height || savedConfig.badge_cardMinHeight || (showTunerPanels && localStorage.getItem('badge_card_height')) || '780');
   });
   const [cardWidth, setCardWidth] = useState<number>(() => {
-    return Number(savedConfig.badge_card_width || savedConfig.badge_cardWidth || (showTunerPanels && localStorage.getItem('badge_card_width')) || '439.4');
+    return Number(savedConfig.badge_card_width || savedConfig.badge_cardWidth || (showTunerPanels && localStorage.getItem('badge_card_width')) || '495');
   });
   const [cardPadding, setCardPadding] = useState<number>(() => {
-    return Number(savedConfig.badge_card_padding || savedConfig.badge_cardPadding || (showTunerPanels && localStorage.getItem('badge_card_padding')) || '22.1');
+    return Number(savedConfig.badge_card_padding || savedConfig.badge_cardPadding || (showTunerPanels && localStorage.getItem('badge_card_padding')) || '26');
   });
   const [badgeBg, setBadgeBg] = useState<string>(() => {
     return savedConfig.badge_badgeBg || savedConfig.badge_card_bg || (showTunerPanels && localStorage.getItem('badge_card_bg')) || '#121214';
@@ -186,31 +186,24 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     return savedConfig.resume_timeline_color || (showTunerPanels && localStorage.getItem('resume_timeline_color')) || '#E1FF39';
   });
   const [roleFontSize, setRoleFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_role_fs || (showTunerPanels && localStorage.getItem('resume_role_fs')) || '19');
+    return Number(savedConfig.resume_role_fs || (showTunerPanels && localStorage.getItem('resume_role_fs')) || '23');
   });
   const [descFontSize, setDescFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_desc_fs || (showTunerPanels && localStorage.getItem('resume_desc_fs')) || '14.5');
+    return Number(savedConfig.resume_desc_fs || (showTunerPanels && localStorage.getItem('resume_desc_fs')) || '17');
   });
   const [periodFontSize, setPeriodFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_period_fs || (showTunerPanels && localStorage.getItem('resume_period_fs')) || '16');
+    return Number(savedConfig.resume_period_fs || (showTunerPanels && localStorage.getItem('resume_period_fs')) || '18');
   });
   const [timelineSpacing, setTimelineSpacing] = useState<number>(() => {
-    return Number(savedConfig.resume_timeline_spacing || (showTunerPanels && localStorage.getItem('resume_timeline_spacing')) || '38');
+    return Number(savedConfig.resume_timeline_spacing || (showTunerPanels && localStorage.getItem('resume_timeline_spacing')) || '46');
   });
 
-  const [educationList, setEducationList] = useState<string[]>(() => {
-    try {
-      const saved = savedConfig.resume_education_list || (showTunerPanels && localStorage.getItem('resume_education_list'));
-      if (saved) {
-        return typeof saved === 'string' ? JSON.parse(saved) : saved;
-      }
-    } catch (e) {
-      console.error(e);
-    }
-    return [
-      '重庆邮电大学移通学院',
-      '数字媒体艺术 本科'
-    ];
+  const [highlightsText, setHighlightsText] = useState<string>(() => {
+    return (
+      savedConfig.resume_highlights ||
+      (showTunerPanels && localStorage.getItem('resume_highlights')) ||
+      '8年+互联网产品视觉设计经验，长期负责C端产品，具备从视觉策略、体系搭建到多端落地的完整设计能力。擅长将产品体验、内容运营与业务增长相结合，能够独立推进编辑器视觉体系、重点运营活动及多渠道传播项目；同时具备动效设计与 AIGC 应用能力，通过动态表现和智能化工作流提升视觉品质与设计效率。'
+    );
   });
 
   const [experienceList, setExperienceList] = useState<any[]>(() => {
@@ -222,65 +215,47 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
       } else {
         rawList = [
           {
-            period: '2020.9 - 2025.6',
-            role: '资深视觉设计师',
+            period: '2020-2025',
+            role: '高级视觉设计师',
             company: '猎豹移动-豹趣科技',
-            description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
+            description: '1.千万级多端视觉生态构建：主导元气桌面壁纸编辑器模块化视觉规范，搭建壁纸编辑器底层资产库。\n2. 渠道重构与商业增长：负责S级运营活动及联想、微软等渠道项目，以差异化视觉推动内容传播与业务转化。\n3.动效视觉主导与AIGC赋能：具备顶尖动效执行力，精通 AE 与粒子特效包揽核心动效产出及跨线视觉指导。且深度掌握 AIGC 视觉生成与创意辅助工作流'
           },
           {
-            period: '2019 - 2020',
+            period: '2019-2020',
             role: '视觉设计师',
-            company: '广州卓牛科技',
-            description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣发和迭代。'
+            company: '卓牛科技有限公司',
+            description: ''
           },
           {
-            period: '2018 - 2019',
+            period: '2018-2019',
             role: '视觉设计师',
-            company: '广州图灵科技',
-            description: '负责运营推广等平面内容输出和视频动画产出。'
+            company: '图灵科技有限公司',
+            description: ''
           }
         ];
       }
 
-      // Normalise role / company separation dynamically
-      return rawList.map((item: any) => {
-        let r = (item.role || '').trim();
-        let c = (item.company || '').trim();
-        if (!c) {
-          if (r.includes('@')) {
-            const parts = r.split('@');
-            r = parts[0].trim();
-            c = parts[1].trim();
-          } else {
-            const match = r.match(/^([\s\S]+?)(?:\s{2,}|\t+| {2,}|[\u00A0]{2,}|@)([\s\S]+)$/);
-            if (match) {
-              r = match[1].trim();
-              c = match[2].trim();
-            }
-          }
-        }
-        return { ...item, role: r, company: c };
-      });
+      return rawList;
     } catch (e) {
       console.error(e);
     }
     return [
       {
         period: '2020.9 - 2025.6',
-        role: '资深视觉设计师',
-        company: '猎豹移动-豹趣科技',
+        role: '资深视觉设计师          猎豹移动-豹趣科技',
+        company: '',
         description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
       },
       {
         period: '2019 - 2020',
-        role: '视觉设计师',
-        company: '广州卓牛科技',
+        role: '视觉设计师          广州卓牛科技',
+        company: '',
         description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣发和迭代。'
       },
       {
         period: '2018 - 2019',
-        role: '视觉设计师',
-        company: '广州图灵科技',
+        role: '视觉设计师          广州图灵科技          ',
+        company: '',
         description: '负责运营推广等平面内容输出和视频动画产出。'
       }
     ];
@@ -522,11 +497,11 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
       {/* Top Section Registry Label deleted as per user request */}
 
       {/* Main Core Identity Grid: Expanded layout to spread screen content & enrich visual density */}
-      <div className="relative z-10 mx-auto w-full max-w-7xl xl:max-w-[1340px] px-4 sm:px-8 lg:px-10 my-auto py-12 lg:py-16">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 xl:gap-20 items-stretch">
+      <div className="relative z-10 mx-auto w-full max-w-[1540px] 2xl:max-w-[1680px] px-4 sm:px-8 lg:px-12 my-auto py-14 lg:py-20">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-14 xl:gap-20 items-center">
           
           {/* COLUMN 1: The Dynamic Hanging ID Badge with Scattered, Non-blocking Floating Design Icons */}
-          <div className={`lg:col-span-5 relative z-20 flex flex-col items-center justify-start pt-4 lg:pt-8 transition-all duration-500 ease-in-out ${
+          <div className={`lg:col-span-5 relative z-20 flex flex-col items-center justify-center pt-4 lg:pt-0 transition-all duration-500 ease-in-out ${
             badgePosition === 'left' ? 'lg:pr-4 lg:order-1' : 'lg:pl-4 lg:order-2'
           }`}>
             
@@ -1083,7 +1058,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
           </div>
  
           {/* COLUMN 2 (lg:col-span-7): Spacious and beautifully aligned career chronicle */}
-          <div className={`lg:col-span-7 relative z-10 space-y-8 pl-0 pt-4 lg:pt-8 transition-all duration-500 ease-in-out ${
+          <div className={`lg:col-span-7 relative z-10 flex flex-col justify-center space-y-8 pl-0 my-auto transition-all duration-500 ease-in-out ${
             badgePosition === 'left' ? 'lg:order-2' : 'lg:order-1'
           } ${
             badgePosition === 'left' 
@@ -1091,82 +1066,100 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
               : 'lg:pr-10 lg:border-r'
           } border-neutral-200`}>
             
-            {/* Pristine timeline list */}
-            <div className="relative border-l border-neutral-200 pl-6 ml-3" style={{ display: 'flex', flexDirection: 'column', gap: `${timelineSpacing}px` }}>
-              {experienceList.map((exp: any, idx: number) => (
-                <div key={idx} className="relative group/timeline">
-                  {/* Timeline bullet node using customized timeline accent color */}
-                  <div 
-                    className="absolute -left-[30.5px] top-1.5 h-3 w-3 rounded-full border border-white transition-all duration-300 group-hover/timeline:scale-125" 
-                    style={{
-                      backgroundColor: timelineColor,
-                      boxShadow: `0 0 10px ${timelineColor}, 0 0 3px ${timelineColor}`,
-                      borderColor: '#ffffff'
-                    }}
-                  />
-                  
-                  <div className="space-y-1.5">
-                    <span 
-                      translate="no"
-                      className="notranslate font-mono text-neutral-400 block font-bold tracking-wider px-1 -mx-1 py-0.5 select-none"
-                      style={{ fontSize: `${periodFontSize}px` }}
-                    >
-                      {exp.period}
-                    </span>
-                    
-                    <h5 
-                      translate="no"
-                      className="notranslate font-sans font-black text-neutral-900 leading-snug px-1 -mx-1 py-0.5 select-none"
-                      style={{ fontSize: `${roleFontSize}px` }}
-                    >
-                      {exp.role} {exp.company && <span translate="no" className="notranslate font-sans font-normal" style={{ fontSize: '16px', marginLeft: '20px', color: '#333333' }}>@ {exp.company}</span>}
-                    </h5>
-
-                    {/* Highly polished subtle description paragraphs with auto-scaling flow */}
-                    <div 
-                      className="pt-1.5 text-neutral-600 font-sans space-y-1 max-w-xl leading-relaxed"
-                      style={{ fontSize: `${descFontSize}px` }}
-                    >
-                      <p className="px-1 py-0.5 -mx-1 select-none whitespace-pre-wrap">
-                        {renderFormattedDescription(exp.description)}
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              ))}
-            </div>
- 
-            {/* Elegant Education / Alumni list bottom section */}
-            <div className="pt-8 border-t border-neutral-200 space-y-3">
-              <div className="flex justify-between items-center">
+            {/* 1. Self-Highlights (自我亮点) */}
+            <div className="space-y-4 pb-2">
+              <div className="flex items-center gap-2.5">
+                <span 
+                  className="w-3 h-3 rounded-full shrink-0" 
+                  style={{ backgroundColor: timelineColor, boxShadow: `0 0 10px ${timelineColor}` }} 
+                />
                 <span 
                   translate="no"
-                  className="notranslate text-[10px] font-mono font-bold tracking-widest text-[#9c9a8a] uppercase block animate-pulse"
+                  className="notranslate text-[13px] sm:text-[14px] font-mono font-bold tracking-widest text-[#7a7868] uppercase block"
                 >
-                  ALMA MATER & EDUCATION // 毕业院校
+                  HIGHLIGHTS // 自我亮点
                 </span>
-
               </div>
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 font-mono text-[11px] text-neutral-600">
-                {educationList.map((school: string, sIdx: number) => (
-                  <div 
-                    key={sIdx} 
-                    className="flex items-center justify-between bg-neutral-50 p-2.5 rounded border border-neutral-200 transition-colors"
-                  >
-                    <div className="flex items-center gap-2 flex-1">
-                      <span className="text-neutral-950 font-bold bg-[#E1FF39] px-1 rounded text-[8px] shrink-0" style={{ backgroundColor: timelineColor }}>🎓</span>
-                      <span 
-                        translate="no"
-                        className="notranslate px-1 flex-1 select-none font-bold text-neutral-800"
-                      >
-                        {school}
-                      </span>
+              <p 
+                translate="no"
+                className="notranslate font-sans text-[17px] sm:text-[18px] lg:text-[19px] text-neutral-800 leading-[2.05] font-normal tracking-wide text-justify select-none"
+              >
+                {highlightsText}
+              </p>
+            </div>
+
+            {/* 2. Company Experiences Timeline (公司经历) */}
+            <div className="pt-5 border-t border-neutral-200/80">
+              <div className="flex items-center gap-2.5 pb-7">
+                <span 
+                  translate="no"
+                  className="notranslate text-[13px] sm:text-[14px] font-mono font-bold tracking-widest text-[#7a7868] uppercase block"
+                >
+                  CAREER CHRONICLE // 公司经历
+                </span>
+              </div>
+
+              {/* Pristine timeline list */}
+              <div className="relative border-l border-neutral-200 pl-8 ml-4" style={{ display: 'flex', flexDirection: 'column', gap: `${timelineSpacing}px` }}>
+                {experienceList.map((exp: any, idx: number) => (
+                  <div key={idx} className="relative group/timeline">
+                    {/* Timeline bullet node using customized timeline accent color */}
+                    <div 
+                      className="absolute -left-[36px] top-2 h-4 w-4 rounded-full border-2 border-white transition-all duration-300 group-hover/timeline:scale-125" 
+                      style={{
+                        backgroundColor: timelineColor,
+                        boxShadow: `0 0 12px ${timelineColor}, 0 0 4px ${timelineColor}`,
+                        borderColor: '#ffffff'
+                      }}
+                    />
+                    
+                    <div className="space-y-2.5">
+                      <div className="flex flex-col sm:flex-row sm:items-baseline sm:justify-between gap-2 sm:gap-5">
+                        <h5 
+                          translate="no"
+                          className="notranslate font-sans font-black text-neutral-900 leading-snug px-1 -mx-1 py-0.5 select-none"
+                          style={{ fontSize: `${roleFontSize}px` }}
+                        >
+                          {exp.company || exp.role}
+                        </h5>
+                        
+                        <div className="flex items-center gap-3 sm:gap-4 px-1 -mx-1 shrink-0">
+                          {exp.company && exp.role && (
+                            <span 
+                              translate="no"
+                              className="notranslate font-sans font-bold text-neutral-800 select-none"
+                              style={{ fontSize: `${Math.max(17, roleFontSize - 2)}px` }}
+                            >
+                              {exp.role}
+                            </span>
+                          )}
+                          <span 
+                            translate="no"
+                            className="notranslate font-mono text-neutral-400 font-bold tracking-wider select-none"
+                            style={{ fontSize: `${periodFontSize}px` }}
+                          >
+                            {exp.period}
+                          </span>
+                        </div>
+                      </div>
+
+                      {/* Highly polished subtle description paragraphs with auto-scaling flow */}
+                      {exp.description ? (
+                        <div 
+                          className="pt-2 text-neutral-700 font-sans space-y-2 max-w-3xl leading-[2.0]"
+                          style={{ fontSize: `${descFontSize}px` }}
+                        >
+                          <p className="px-1 py-0.5 -mx-1 select-none whitespace-pre-wrap">
+                            {renderFormattedDescription(exp.description)}
+                          </p>
+                        </div>
+                      ) : null}
                     </div>
                   </div>
                 ))}
               </div>
             </div>
- 
+
           </div>
         </div>
       </div>
