@@ -109,3 +109,5 @@ export default function App() {
     </div>
   );
 }
+
+// Production sync: 2026-09-16.
