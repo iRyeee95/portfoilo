@@ -53,10 +53,10 @@ export const projects: Project[] = [
       'https://images.unsplash.com/photo-1501183007986-d0d080b147f9?auto=format&fit=crop&w=800&q=80'
     ],
     featured: true,
-    detailImageUrl: '/project1_detail.jpg?v=20260915_r1',
+    detailImageUrl: '/project1_detail_1.jpg?v=20261012_v3',
     detailVideoUrls: [
-      '/cny_video_1.mp4?v=20260616_v5',
-      '/cny_video_2.mp4?v=20260616_v5'
+      '/cny_video_1.mp4?v=20261012_v3',
+      '/cny_video_2.mp4?v=20261012_v3'
     ],
     detailVideoPosition: 'overlay',
     detailVideoConfig: {
@@ -286,6 +286,7 @@ export const designerProfile: DesignerProfile = {
     { year: '2023', title: 'Special Recognition in System Taxonomy', event: 'Symmetric Space Design Awards' }
   ],
   experience: [
+    { period: '2025 - Present', role: 'Senior Visual Designer / Freelance', company: 'Freelance Designer / 自由设计师' },
     { period: '2023 - Present', role: 'Visual Operations Director & Lead Creator', company: 'Yuanqi Desktop / Shanghai' },
     { period: '2021 - 2023', role: 'Senior Key Visual & Brand Designer', company: 'Commercial Creative Lab' },
     { period: '2019 - 2021', role: 'Interactive Illustrator & UI/UX Designer', company: 'Digital Media Bureau' }
