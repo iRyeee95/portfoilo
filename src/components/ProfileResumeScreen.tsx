@@ -93,7 +93,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     return savedConfig.badge_eng_name || (showTunerPanels && localStorage.getItem('badge_english_name')) || 'RYE XU';
   });
   const [yearsExp, setYearsExp] = useState(() => {
-    return savedConfig.badge_years_exp || (showTunerPanels && localStorage.getItem('badge_years_exp')) || '7+ YEARS EXP';
+    return savedConfig.badge_years_exp || (showTunerPanels && localStorage.getItem('badge_years_exp')) || '8+ YEARS EXP';
   });
   const [birthday, setBirthday] = useState(() => {
     return savedConfig.badge_birthday || (showTunerPanels && localStorage.getItem('badge_birthday')) || '1996.09.05';
@@ -189,7 +189,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     return Number(savedConfig.resume_role_fs || (showTunerPanels && localStorage.getItem('resume_role_fs')) || '23');
   });
   const [descFontSize, setDescFontSize] = useState<number>(() => {
-    return Number(savedConfig.resume_desc_fs || (showTunerPanels && localStorage.getItem('resume_desc_fs')) || '17');
+    return Number(savedConfig.resume_desc_fs || (showTunerPanels && localStorage.getItem('resume_desc_fs')) || '16.5');
   });
   const [periodFontSize, setPeriodFontSize] = useState<number>(() => {
     return Number(savedConfig.resume_period_fs || (showTunerPanels && localStorage.getItem('resume_period_fs')) || '18');
@@ -215,8 +215,14 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
       } else {
         rawList = [
           {
+            period: '2025-至今',
+            role: '高级视觉设计',
+            company: '自由设计师',
+            description: '• 独立承接营销活动、产品视觉及动效设计项目: 需求拆解、创意提案、视觉执行与最终交付；围绕品牌特征与传播目标，输出兼具辨识度、延展性与商业落地能力的视觉方案。\n• AIGC视觉创意与设计提效: 深耕AIGC视觉创意，运用于创意发散，概念草图、方案快速试稿、视觉效果预演和素材辅助生成。借助AIGC完成前期创意探索和多方案验证，缩短提案周期，扩展视觉风格边界，并结合传统设计能力输出高质量商业视觉方案。'
+          },
+          {
             period: '2020-2025',
-            role: '高级视觉设计师',
+            role: '高级视觉设计',
             company: '猎豹移动-豹趣科技',
             description: '1.千万级多端视觉生态构建：主导元气桌面壁纸编辑器模块化视觉规范，搭建壁纸编辑器底层资产库。\n2. 渠道重构与商业增长：负责S级运营活动及联想、微软等渠道项目，以差异化视觉推动内容传播与业务转化。\n3.动效视觉主导与AIGC赋能：具备顶尖动效执行力，精通 AE 与粒子特效包揽核心动效产出及跨线视觉指导。且深度掌握 AIGC 视觉生成与创意辅助工作流'
           },
@@ -241,22 +247,28 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
     }
     return [
       {
-        period: '2020.9 - 2025.6',
-        role: '资深视觉设计师          猎豹移动-豹趣科技',
-        company: '',
-        description: '千万级生态基建与赋能： 主导元气桌面壁纸编辑器（PC 端）模块化视觉规范，独立产出涵盖交互组件、底层特效等 500+ 高精资产矩阵。成功将复杂的动态渲染逻辑降维封装，大幅降低大众创作门槛，强势驱动千万级 UGC 社区的内容裂变与繁荣。\n 2. 业务转化与核心渠道跃升：业务转化与核心渠道跃升 深度参与全域应用商店视觉全面升级。针对不同渠道把控平台特性并重构展示层级，有效解决原版焦点涣散痛点，直接带动核心渠道转化率（CVR）实现 11.6% 的显著跃升。\n 3.动效视觉主导与全链路创意赋能：突破传统制作瓶颈，通过 AIGC 商业化落地大幅提升团队设计投产比与视觉表现上限。精通 AE 与复杂粒子特效，包揽项目内核心高阶动效产出，全面打通视觉与动效的全链路。'
+        period: '2025-至今',
+        role: '高级视觉设计',
+        company: '自由设计师',
+        description: '• 独立承接营销活动、产品视觉及动效设计项目: 需求拆解、创意提案、视觉执行与最终交付；围绕品牌特征与传播目标，输出兼具辨识度、延展性与商业落地能力的视觉方案。\n• AIGC视觉创意与设计提效: 深耕AIGC视觉创意，运用于创意发散，概念草图、方案快速试稿、视觉效果预演和素材辅助生成。借助AIGC完成前期创意探索和多方案验证，缩短提案周期，扩展视觉风格边界，并结合传统设计能力输出高质量商业视觉方案。'
       },
       {
-        period: '2019 - 2020',
-        role: '视觉设计师          广州卓牛科技',
-        company: '',
-        description: '负责相机、清理等手机软件的视觉内容设计和运营活动宣发和迭代。'
+        period: '2020-2025',
+        role: '高级视觉设计',
+        company: '猎豹移动-豹趣科技',
+        description: '1.千万级多端视觉生态构建：主导元气桌面壁纸编辑器模块化视觉规范，搭建壁纸编辑器底层资产库。\n2. 渠道重构与商业增长：负责S级运营活动及联想、微软等渠道项目，以差异化视觉推动内容传播与业务转化。\n3.动效视觉主导与AIGC赋能：具备顶尖动效执行力，精通 AE 与粒子特效包揽核心动效产出及跨线视觉指导。且深度掌握 AIGC 视觉生成与创意辅助工作流'
       },
       {
-        period: '2018 - 2019',
-        role: '视觉设计师          广州图灵科技          ',
-        company: '',
-        description: '负责运营推广等平面内容输出和视频动画产出。'
+        period: '2019-2020',
+        role: '视觉设计师',
+        company: '卓牛科技有限公司',
+        description: ''
+      },
+      {
+        period: '2018-2019',
+        role: '视觉设计师',
+        company: '图灵科技有限公司',
+        description: ''
       }
     ];
   });
@@ -410,6 +422,7 @@ export default function ProfileResumeScreen({ onScrollToWorks }: ProfileResumeSc
 
   // Clean empty effect with auto-saving to workspace disk
   React.useEffect(() => {
+    if (!showTunerPanels) return;
     const config: Record<string, any> = {};
     for (let i = 0; i < localStorage.length; i++) {
       const key = localStorage.key(i);
